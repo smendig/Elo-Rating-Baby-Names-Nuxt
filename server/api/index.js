@@ -11,8 +11,10 @@ const elo = {
         return Math.round(32 * (myGameResult - myChanceToWin))
     },
     computeChoose(a) {
-        let i1 = db.find(i => i.id === a[0].id)
-        let i2 = db.find(i => i.id === a[1].id)
+        let i1 = db.find(i => i.name === a[0].name)
+        let i2 = db.find(i => i.name === a[1].name)
+        console.log(i1)
+        console.log(i2)
         if (i1 && i2) {
             let rDelta = elo.getRatingDelta(i1.rating, i2.rating, 1)
             i1.rating += rDelta
@@ -26,6 +28,15 @@ const elo = {
         if (db.find(i => i.name === nTrimmed)) { return false }
         db.push({ rating: 1500, name: nTrimmed, i: 0 })
         return true
+    },
+    deleteName(d) {
+        console.log(d)
+        let i = db.findIndex(i => i.name === d.name)
+        if (i >= 0) {
+            db.splice(i, 1)
+            return true
+        }
+        return false
     }
 }
 
@@ -40,6 +51,11 @@ router.post('/choose', bodyParser.json(), (req, res) => {
 router.post('/addname', bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
     if (!elo.addName(req.body)) { return res.status(409).send('Already exists') }
+    res.send(db)
+})
+router.post('/deletename', bodyParser.json(), (req, res) => {
+    if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
+    if (!elo.deleteName(req.body)) { return res.status(409).send('Doesnt exists') }
     res.send(db)
 })
 export default router

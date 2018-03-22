@@ -17,6 +17,7 @@
     "cross-env": "^5.0.1",
     "express": "^4.16.3",
     "nuxt": "^1.4.0",
+    "sass-loader": "^6.0.7",
     "source-map-support": "^0.5.4",
     "vuetify": "^1.0.10"
   },
