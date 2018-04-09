@@ -1,6 +1,5 @@
 <template>
     <v-container grid-list-md>
-        <h1>Añadir nombre</h1>
         <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Nombre a añadir" v-model="nombre" :rules="nameRules" :counter="20" required></v-text-field>
             <v-btn @click="aniadirNombre" :disabled="!valid">Añadir</v-btn>
