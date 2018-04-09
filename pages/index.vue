@@ -1,5 +1,6 @@
 <template>
     <v-container grid-list-md text-xs-center>
+        <IntroAnimation />
         <v-layout row>
             <v-flex xs12><h1>Que nombre te gusta mas</h1></v-flex>
         </v-layout>
@@ -20,8 +21,9 @@
 
 <script>
     import axios from '~/plugins/axios'
+    import IntroAnimation from '@/components/IntroAnimation.vue'
     export default {
-        components: {},
+        components: { IntroAnimation },
         data() {
             return {
                 waitingServerResponse: false
