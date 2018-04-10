@@ -24,8 +24,8 @@
     "source-map-support": "^0.5.4",
     "typed.js": "^2.0.6",
     "vue-style-loader": "^4.1.0",
-    "vue-typer": "^1.2.0",
-    "vuetify": "^1.0.14"
+    "vuetify": "^1.0.14",
+    "vuex-persistedstate": "^2.5.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",

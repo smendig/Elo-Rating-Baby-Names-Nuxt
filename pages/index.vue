@@ -1,83 +1,182 @@
 <template>
-    <v-container grid-list-md text-xs-center fill-height>
-        <IntroAnimation />
-        <v-layout row justify-center align-center>
-            <v-flex xs12>
-                <v-container>
-                    <v-layout row>
-                        <v-flex xs12><h1>Que nombre te gusta mas</h1></v-flex>
-                    </v-layout>
-                    <transition appear name="fade" mode="out-in"><v-layout v-if="!waitingServerResponse&&n1&&n2" row>      
-                        <v-flex xs6 class="cItemName" v-on:click.stop="clickName([n1,n2])">
-                            <v-card dark color="secondary">
-                                <v-card-text class="px-0">{{n1.name}}</v-card-text>
-                            </v-card>
-                        </v-flex>
-                        <v-flex xs6 class="cItemName" v-on:click.stop="clickName([n2,n1])">
-                            <v-card dark color="secondary">
-                                <v-card-text class="px-0">{{n2.name}}</v-card-text>
-                            </v-card>
-                        </v-flex>
-                    </v-layout></transition>
-                </v-container>
-            </v-flex>
-        </v-layout>
-    </v-container>
+    <div id="intro">
+        <div class="container">
+            <div v-if="!storedUsername">
+            <transition appear name="fade"><v-progress-circular v-if="animationState==='loading'" :size="400" :width="15" :rotate="90" :value="circleValue" color="teal">
+                <img class="introImg" src="@/static/boy.svg">
+            </v-progress-circular></transition>
+            <div ref="dtypedjs" class="dtypedjs"></div>
+            <transition appear name="fade"><v-text-field ref="nameinput" v-if="animationState==='nameinput'" v-model="username" label="Nombre"></v-text-field></transition>
+            <transition appear name="fade"><v-btn v-if="animationState==='nameinput'" v-on:click.stop="cName" :loading="false" :disabled="false" color="blue-grey">Empezar
+                <v-icon right dark>done</v-icon>
+            </v-btn></transition>
+            </div>
+            <div v-else>
+                <h1 class="display-1">HOLA OTRA VEZ</h1>
+                <h2 class="hola display-3">{{storedUsername}}</h2>
+                <transition appear name="fade"><div class="cElige"><v-btn to="/elige" color="primary">Empezar a elegir</v-btn></div></transition>
+                <transition appear name="fade"><div class="cNewUsername"><v-btn v-on:click.stop="cNewUsername" :loading="false" :disabled="false" color="error">No eres {{storedUsername}}?
+                </v-btn></div></transition>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-    import axios from '~/plugins/axios'
-    import IntroAnimation from '@/components/IntroAnimation.vue'
+    import Typed from 'typed.js'
     export default {
-        components: { IntroAnimation },
+        components: {},
         data() {
             return {
-                waitingServerResponse: false,
-                n1: null,
-                n2: null
+                username: '',
+                animationState: 'loading',
+                typedInstance: null,
+                circleValue: 0
             }
         },
         computed: {
-            nameList() { return this.$store.state.nameList }
+            nameList() { return this.$store.state.nameList },
+            storedUsername() { return this.$store.state.per.username }
         },
         created() {
-            this.$store.dispatch('updateList', () => {
-                this.randomNames()
-            })
-        },
-        methods: {
-            clickName(n) {
-                if (this.waitingServerResponse) { return }
-                this.waitingServerResponse = true
-                axios.post('/api/choose', n).then((d) => {
-                    this.$store.commit('setNamelist', d.data)
-                    setTimeout(() => {
-                        this.randomNames()
-                        this.waitingServerResponse = false
-                    }, 1000)
-                }).catch(e => {
-                    console.log(e)
-                    this.waitingServerResponse = false
-                })
-            },
-            randomNames() {
-                if (this.nameList < 2) {
-                    this.n1 = null
-                    this.n2 = null
-                } else {
-                    this.n1 = this.nameList[Math.floor(Math.random() * this.nameList.length)]
-                    this.n2 = this.nameList.filter(n => n.name !== this.n1.name)[Math.floor(Math.random() * (this.nameList.length - 1))]
-                }
+            if (this.storedUsername) {
+                this.withUsernameAnimation()
+            } else {
+                this.noUsernameAnimation()
             }
         },
-        watch: {}
+        beforeDestroy() {
+            if (this.typedInstance) { this.typedInstance.destroy() }
+        },
+        methods: {
+            cName() {
+                this.$store.commit('setUsername', this.username.trim())
+                this.$router.push({ path: '/elige' })
+            },
+            noUsernameAnimation() {
+                function sleep(time) {
+                    return new Promise(resolve => {
+                        setTimeout(resolve, time)
+                    })
+                }
+                sleep(300).then(() => {
+                    this.circleValue = 10
+                    return sleep(50)
+                }).then(() => {
+                    this.circleValue = 60
+                    return sleep(50)
+                }).then(() => {
+                    this.circleValue = 90
+                    return sleep(50)
+                }).then(() => {
+                    this.circleValue = 100
+                    return sleep(50)
+                }).then(() => {
+                    this.animationState = ''
+                    return sleep(100)
+                }).then(() => {
+                    this.animationState = '1'
+                    var options = {
+                        strings: ['Hola!^2000',
+                            'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudar a elegir el nombre^2000',
+                            'Tu opinion no nos importa^400, la elección del nombre será nues^1000',
+                            'Tu opinion no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quien seas)</span>, la elección del nombre será nuestra^2000',
+                            '¿Quien Eres?'
+                        ],
+                        typeSpeed: 4,
+                        startDelay: 150,
+                        onComplete: () => {
+                            this.typedInstance.destroy()
+                            this.$refs.dtypedjs.innerHTML = '¿Quien Eres?'
+                            this.animationState = 'nameinput'
+                            setTimeout(() => { this.$refs.nameinput.focus() }, 500)
+                        }
+                    }
+                    this.typedInstance = new Typed(this.$refs.dtypedjs, options)
+                    return sleep(300)
+                })
+            },
+            withUsernameAnimation() {
+
+            },
+            cNewUsername() {
+                this.$store.commit('setUsername', '')
+                this.noUsernameAnimation()
+            }
+        },
+        watch: {},
+        layout: 'empty'
     }
 
 </script>
 
+<style>
+    .typed-cursor {
+        opacity: 1;
+        animation: blink .7s infinite;
+        font-size: 37px;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+</style>
+
 <style scoped>
-    .cItemName {
-        cursor: pointer;
+    #intro {
+        text-align: center;
+        background-color: #ccc;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        background: #f2f9fe;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #f2f9fe 0%, #d6f0fd 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #f2f9fe 0%, #d6f0fd 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #f2f9fe 0%, #d6f0fd 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .container {}
+
+    .introImg {
+        width: 100%;
+        height: auto;
+    }
+
+    .introtxt {
+        font-size: 40px;
+        position: absolute;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        left: 0;
+    }
+
+    .dtypedjs {
+        font-size: 30px;
+        display: inline;
+    }
+
+    .cElige {
+        margin: 10px auto;
+    }
+
+    .cNewUsername {
+        margin: 40px auto;
     }
 
 </style>

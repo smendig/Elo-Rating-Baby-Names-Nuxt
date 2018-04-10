@@ -14,11 +14,11 @@ module.exports = {
         ],
         script: []
     },
-    // css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css'],
     mode: 'spa',
     serverMiddleware: [],
     loading: { color: '#3B8070' },
-    plugins: ['~plugins/vuetify'],
+    plugins: ['~plugins/vuetify', { src: '~/plugins/localStorage.js', ssr: false }],
     build: {
         vendor: ['axios'],
         extend(config, ctx) {
