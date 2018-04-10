@@ -10,11 +10,11 @@ module.exports = {
         link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab|Material+Icons|Montserrat', type: 'text/css' },
-            { rel: 'stylesheet', href: 'https://unpkg.com/vuetify@1.0.13/dist/vuetify.min.css', type: 'text/css' }
+            { rel: 'stylesheet', href: 'https://unpkg.com/vuetify@1.0.14/dist/vuetify.min.css', type: 'text/css' }
         ],
         script: []
     },
-    css: ['~/assets/css/main.css'],
+    // css: ['~/assets/css/main.css'],
     mode: 'spa',
     serverMiddleware: [],
     loading: { color: '#3B8070' },
