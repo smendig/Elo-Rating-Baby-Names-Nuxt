@@ -21,7 +21,6 @@
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
                 <td class="text-xs-right">{{ props.item.rating }}</td>
-                <td class="text-xs-right">{{ props.item.i }}</td>
                 <td class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                         <v-icon color="pink">delete</v-icon>
@@ -52,7 +51,6 @@
                 headers: [
                     { text: 'Nombre', align: 'left', sortable: false, value: 'name' },
                     { text: 'Rating', align: 'right', value: 'rating' },
-                    { text: 'Nº veces votado', align: 'right', value: 'i' },
                     { text: 'Borrar', align: 'center', value: 'i', sortable: false, width: 30 }
                 ]
             }

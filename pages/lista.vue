@@ -4,7 +4,7 @@
         <RankingGlobal />
         <div class="cAniadir"></div>
         <h1>Añadir nombre</h1>
-        <h3>Puedes añadir aquí nombres para que se incluyan en las opciones. Mete algún nombre que te guste y no esté en la lista.</h3>
+        <h3>Puedes añadir aquí nombres para que se incluyan en entre las opciones de votar. Mete algún nombre que te guste y no esté en la lista.</h3>
         <AniadirNombre />
     </v-container>
 </template>

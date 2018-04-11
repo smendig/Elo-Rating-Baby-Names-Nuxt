@@ -11,8 +11,8 @@
                     </v-layout></transition>
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===5" row>
                         <v-flex class="cFinVotacion" xs12>
-                            <h1>Gracias por participar</h1>
-                            <h1>Esta votación no será tenida en cuenta para la decisión</h1>
+                            <h1>Gracias por participar.</h1>
+                            <h1>Esta votación no será tenida en cuenta para la decisión.</h1>
                             <img src="/boy.svg">
                             <h1>O igual si...</h1>
                             <v-btn @click="retry"><v-icon color="pink">replay</v-icon>Seguir Votando</v-btn>
@@ -48,7 +48,7 @@
             return {
                 animationStep: 0,
                 nOfVotes: 0,
-                nOfVotesMax: 10,
+                nOfVotesMax: 1,
                 waitingServerResponse: false,
                 n1: null,
                 n2: null
@@ -140,12 +140,22 @@
 
     .c1 {
         min-height: 250px;
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 700px) {
+        .c1 {
+            font-size: 14px;
+        }
+        .cFinVotacion {
+            font-size: 80%;
+        }
     }
 
     .cProgress {
         position: absolute;
         text-align: center;
-        bottom: 60px;
+        bottom: 80px;
         width: 80%;
         left: 10%;
     }
