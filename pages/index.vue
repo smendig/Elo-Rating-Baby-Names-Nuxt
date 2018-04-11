@@ -196,6 +196,12 @@
         display: inline;
     }
 
+    @media screen and (max-width: 900px) {
+        .dtypedjs {
+            font-size: 23px;
+        }
+    }
+
     .cElige {
         margin: 10px auto;
     }
