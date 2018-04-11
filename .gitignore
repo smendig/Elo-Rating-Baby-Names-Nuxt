@@ -12,3 +12,5 @@ dist
 
 # Backpack build
 build
+
+/server/api/db.json
