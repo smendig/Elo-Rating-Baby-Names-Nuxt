@@ -2,7 +2,21 @@
     <v-container grid-list-md>
         <h1>Lista</h1>
         <p>* Rating por sistema de puntuación ELO</p>
-        <v-data-table :headers="headers" :loading="false" disable-initial-sort :rows-per-page-items="[10]" :items="nameList" class="elevation-1">
+        <v-text-field class="filtroglobal"
+        append-icon="search"
+        label="Filtro"
+        single-line
+        hide-details
+        v-model="searchFilterGlobal"
+      ></v-text-field>
+        <v-data-table 
+        :headers="headers" 
+        :loading="false" 
+        :rows-per-page-items="[10]" 
+        :items="nameList" 
+        :search="searchFilterGlobal"
+        disable-initial-sort 
+        class="elevation-1">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
                 <td class="text-xs-right">{{ props.item.rating }}</td>
@@ -17,8 +31,9 @@
                 {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
             </template>
 </v-data-table>
-<div style="margin:10px"></div>
+<div class="cAniadir"></div>
 <h1>Añadir nombre</h1>
+<h3>Puedes añadir aquí nombres para que se incluyan en las opciones. Mete algún nombre que te guste y no esté en la lista.</h3>
 <AniadirNombre />
 <v-dialog v-model="nedry" max-width="500px">
     <Nedry />
@@ -35,6 +50,7 @@
         components: { AniadirNombre, Nedry },
         data() {
             return {
+                searchFilterGlobal: '',
                 waitingServerResponse: false,
                 nedry: false,
                 adm: true,
@@ -83,6 +99,12 @@
 </script>
 
 <style scoped>
+    .cAniadir {
+        margin: 50px
+    }
 
+    .filtroglobal{
+        width: 50%;
+    }
 
 </style>
