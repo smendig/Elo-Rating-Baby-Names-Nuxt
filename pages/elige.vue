@@ -48,7 +48,7 @@
             return {
                 animationStep: 0,
                 nOfVotes: 0,
-                nOfVotesMax: 1,
+                nOfVotesMax: 10,
                 waitingServerResponse: false,
                 n1: null,
                 n2: null
