@@ -7,7 +7,7 @@
                 <img class="introImg" src="@/static/boy.svg">
             </v-progress-circular></transition>
             <div ref="dtypedjs" class="dtypedjs"></div>
-            <transition appear name="fade"><v-text-field ref="nameinput" v-if="animationState==='nameinput'" v-model="username" label="Nombre"></v-text-field></transition>
+            <transition appear name="fade"><v-text-field ref="nameinput" v-if="animationState==='nameinput'" v-model="username" label="Nombre" color="#000"></v-text-field></transition>
             <transition appear name="fade"><v-btn v-if="animationState==='nameinput'" v-on:click.stop="cName" :loading="false" :disabled="false" color="blue-grey">Empezar
                 <v-icon right dark>done</v-icon>
             </v-btn></transition>

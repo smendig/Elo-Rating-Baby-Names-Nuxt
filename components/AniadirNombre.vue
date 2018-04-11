@@ -27,7 +27,8 @@
             }
         },
         computed: {
-            nameList() { return this.$store.state.nameList }
+            nameList() { return this.$store.state.nameList },
+            username() { return this.$store.state.per.username }
         },
         created() {},
         methods: {
@@ -36,7 +37,7 @@
                 this.existsShow = false
                 this.addedShow = false
                 this.waitingServerResponse = true
-                axios.post('/api/addname', { name: this.nombre }).then((d) => {
+                axios.post('/api/addname', { uname: this.username, prevu: localStorage.prevu, name: this.nombre }).then((d) => {
                     this.$store.commit('setNamelist', d.data)
                     this.addedShow = true
                     this.waitingServerResponse = false

@@ -47,9 +47,14 @@
             }
         },
         computed: {
-            nameList() { return this.$store.state.nameList }
+            nameList() { return this.$store.state.nameList },
+            username() { return this.$store.state.per.username }
         },
         created() {
+            if (!this.username) {
+                this.$router.push({ path: '/' })
+                return
+            }
             if (this.nameList.length < 2) {
                 this.$store.dispatch('updateList')
             }
@@ -62,7 +67,7 @@
                 } else {
                     console.log(i)
                     this.waitingServerResponse = true
-                    axios.post('/api/deletename', { name: i.name, token: localStorage.token }).then((d) => {
+                    axios.post('/api/deletename', { uname: this.username, prevu: localStorage.prevu, name: i.name, token: localStorage.token }).then((d) => {
                         this.$store.commit('setNamelist', d.data)
                         this.waitingServerResponse = false
                     }).catch(e => {

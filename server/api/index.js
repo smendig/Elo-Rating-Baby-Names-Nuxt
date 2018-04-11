@@ -3,13 +3,20 @@ import bodyParser from 'body-parser'
 const fs = require('fs')
 
 const GoogleSpreadsheet = require('google-spreadsheet')
+const RateLimit = require('express-rate-limit')
 const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU')
 
+let sheets = { votos: null, deletes: null, nuevos: null }
+
 let db = JSON.parse(fs.readFileSync('./server/api/db.json'))
-console.log(db)
 
 doc.useServiceAccountAuth(require('./cred.json'), function(err) {
     if (err) { console.log(err) }
+    doc.getInfo(function(err, info) {
+        sheets.votos = info.worksheets[0]
+        sheets.deletes = info.worksheets[1]
+        sheets.nuevos = info.worksheets[2]
+    })
 })
 
 const router = Router()
@@ -42,7 +49,6 @@ const elo = {
         return true
     },
     deleteName(d) {
-        console.log(d)
         let i = db.findIndex(i => i.name === d.name)
         if (i >= 0) {
             db.splice(i, 1)
@@ -53,39 +59,54 @@ const elo = {
     }
 }
 
-function checkValid() { return true }
-
-router.get('/rank', (req, res) => { res.send(db) })
-router.post('/choose', bodyParser.json(), (req, res) => {
-    if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
-    elo.computeChoose(req.body.battle)
-    doc.addRow(1, {
+function getIdObject(tipo, req) {
+    let o = {
         user: req.body.uname,
         prevu: req.body.prevu,
         IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress.split(',')[0],
         datetime: new Date().toLocaleString(),
-        useragent: req.headers['user-agent'],
-        N1: req.body.battle[0].name,
-        N1Rating: req.body.battle[0].rating,
-        N1i: req.body.battle[0].i,
-        N2: req.body.battle[1].name,
-        N2Rating: req.body.battle[1].rating,
-        N2i: req.body.battle[1].i
-    }, (err) => {
-        if (err) { console.log(err) }
-    })
+        useragent: req.headers['user-agent']
+    }
+    if (tipo === 'votos') {
+        o.N1 = req.body.battle[0].name,
+            o.N1Rating = req.body.battle[0].rating,
+            o.N1i = req.body.battle[0].i,
+            o.N2 = req.body.battle[1].name,
+            o.N2Rating = req.body.battle[1].rating,
+            o.N2i = req.body.battle[1].i
+    } else if (tipo === 'deletes') {
+        o.deletepetition = JSON.stringify(req.body)
+    } else if (tipo === 'nuevos') {
+        o.nuevopetition = JSON.stringify(req.body)
+    }
+    return o
+}
+
+function checkValid() { return true }
+
+const limiter1 = new RateLimit({
+    windowMs: 10 * 1000,
+    max: 15,
+    delayAfter: 3,
+    delayMs: 2000
+})
+
+router.get('/rank', (req, res) => { res.send(db) })
+router.post('/choose',limiter1, bodyParser.json(), (req, res) => {
+    if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
+    elo.computeChoose(req.body.battle)
+    sheets.votos.addRow(getIdObject('votos', req), (err) => { if (err) { console.log(err) } })
     res.send(db)
 })
 router.post('/addname', bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
-    if (!elo.addName(req.body)) { return res.status(409).send('Already exists') }
-    res.send(db)
+    sheets.nuevos.addRow(getIdObject('nuevos', req), (err) => { if (err) { console.log(err) } })
+    if (!elo.addName(req.body)) { res.status(409).send('Already exists') } else { res.send(db) }
 })
 router.post('/deletename', bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
-    if (req.body.token !== 'sabinyangraisayin') { return res.status(401).send('Unauth') }
-    if (!elo.deleteName(req.body)) { return res.status(409).send('Doesnt exists') }
-    res.send(db)
+    sheets.deletes.addRow(getIdObject('deletes', req), (err) => { if (err) { console.log(err) } })
+    if (req.body.token !== 'sabinyangraisayin') { res.status(401).send('Unauth') } else if (!elo.deleteName(req.body)) { res.status(409).send('Doesnt exists') } else { res.send(db) }
 })
 
 export default router
