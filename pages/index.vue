@@ -68,19 +68,19 @@
                 }
                 sleep(300).then(() => {
                     this.circleValue = 10
-                    return sleep(50)
+                    return sleep(500)
                 }).then(() => {
                     this.circleValue = 60
-                    return sleep(50)
+                    return sleep(500)
                 }).then(() => {
                     this.circleValue = 90
-                    return sleep(50)
+                    return sleep(500)
                 }).then(() => {
                     this.circleValue = 100
-                    return sleep(50)
+                    return sleep(500)
                 }).then(() => {
                     this.animationState = ''
-                    return sleep(100)
+                    return sleep(1000)
                 }).then(() => {
                     this.animationState = '1'
                     var options = {
@@ -90,8 +90,8 @@
                             'Tu opinion no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quien seas)</span>, la elección del nombre será nuestra^2000. No se trata de que sea lo que elija la mayoría. pero bueno, ya que está hecho...',
                             '¿Quien Eres?'
                         ],
-                        typeSpeed: 4,
-                        startDelay: 150,
+                        typeSpeed: 40,
+                        startDelay: 1500,
                         onComplete: () => {
                             this.typedInstance.destroy()
                             this.$refs.dtypedjs.innerHTML = '¿Quien Eres?'
@@ -100,7 +100,7 @@
                         }
                     }
                     this.typedInstance = new Typed(this.$refs.dtypedjs, options)
-                    return sleep(300)
+                    return sleep(3000)
                 })
             },
             withUsernameAnimation() {
