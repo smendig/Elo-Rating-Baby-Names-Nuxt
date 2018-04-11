@@ -30,8 +30,8 @@ const elo = {
             i1.rating += rDelta
             i2.rating -= rDelta
             i1.i++
-            i2.i++
-            fs.writeFileSync('./server/api/db.json', JSON.stringify(db))
+                i2.i++
+                fs.writeFileSync('./server/api/db.json', JSON.stringify(db))
         }
     },
     addName(d) {
@@ -61,6 +61,7 @@ router.post('/choose', bodyParser.json(), (req, res) => {
     elo.computeChoose(req.body.battle)
     doc.addRow(1, {
         user: req.body.uname,
+        prevu: req.body.prevu,
         IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress.split(',')[0],
         datetime: new Date().toLocaleString(),
         useragent: req.headers['user-agent'],

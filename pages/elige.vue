@@ -52,7 +52,7 @@
             clickName(n) {
                 if (this.waitingServerResponse) { return }
                 this.waitingServerResponse = true
-                axios.post('/api/choose', { uname: this.username, battle: n }).then((d) => {
+                axios.post('/api/choose', { uname: this.username, prevu: localStorage.prevu, battle: n }).then((d) => {
                     this.$store.commit('setNamelist', d.data)
                     setTimeout(() => {
                         this.randomNames()

@@ -55,6 +55,9 @@
             cName() {
                 this.hide = true
                 this.$store.commit('setUsername', this.username.trim())
+                if (localStorage.prevu) {
+                    localStorage.prevu = localStorage.prevu + '||' + this.username.trim()
+                } else { localStorage.prevu = this.username.trim() }
                 this.$router.push({ path: '/elige' })
             },
             noUsernameAnimation() {
@@ -105,6 +108,9 @@
             },
             cNewUsername() {
                 this.$store.commit('setUsername', '')
+                if (localStorage.prevu) {
+                    localStorage.prevu = localStorage.prevu + '||usernamereset'
+                }
                 this.noUsernameAnimation()
             }
         },
