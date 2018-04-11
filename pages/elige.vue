@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md text-xs-center fill-height>
+    <v-container class="c2" grid-list-md text-xs-center fill-height>
         <v-layout row justify-center align-center>
             <v-flex xs12>
                 <v-container class="c1">
@@ -48,7 +48,7 @@
             return {
                 animationStep: 0,
                 nOfVotes: 0,
-                nOfVotesMax: 100,
+                nOfVotesMax: 10,
                 waitingServerResponse: false,
                 n1: null,
                 n2: null
@@ -57,6 +57,7 @@
         computed: {
             nameList() { return this.$store.state.nameList },
             username() { return this.$store.state.per.username },
+            localRanking() { return this.$store.state.per.localRanking },
             showIntro() { return this.$store.state.showIntro },
             progressvalue() { return this.nOfVotes * 100 / this.nOfVotesMax }
         },
@@ -109,6 +110,7 @@
                     console.log(e)
                     this.waitingServerResponse = false
                 })
+                this.$store.dispatch('localRankingCalc', n)
             },
             randomNames() {
                 if (this.nameList < 2) {

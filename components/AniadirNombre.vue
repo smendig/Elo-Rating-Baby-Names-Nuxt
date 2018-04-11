@@ -1,11 +1,11 @@
 <template>
     <v-container grid-list-md>
+        <v-alert type="success" :value="addedShow" transition="scale-transition">Nombre añadido</v-alert>
+        <v-alert type="info" :value="existsShow" transition="scale-transition">Ya existe el nombre</v-alert>
         <v-form v-model="valid" ref="form" lazy-validation>
             <v-text-field label="Nombre a añadir" v-model="nombre" :rules="nameRules" :counter="20" required></v-text-field>
             <v-btn @click="aniadirNombre" :disabled="!valid">Añadir</v-btn>
         </v-form>
-        <v-alert type="success" :value="addedShow" transition="scale-transition">Nombre añadido</v-alert>
-        <v-alert type="info" :value="existsShow" transition="scale-transition">Ya existe el nombre</v-alert>
     </v-container>
 </template>
 

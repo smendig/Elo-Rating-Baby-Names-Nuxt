@@ -1,5 +1,14 @@
+* {
+  user-select: none;
+}
+
 body {
   font-family: Roboto, sans-serif;
+  background-color: #d9deff;
+}
+
+.application--wrap {
+  background-color: #d9deff;
 }
 
 .slide-fade-enter-active {

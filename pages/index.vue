@@ -3,8 +3,8 @@
         <FondoNubes />
         <div v-if="!hide" class="container">
             <div v-if="!storedUsername">
-            <transition appear name="fade"><v-progress-circular v-if="animationState==='loading'" :size="400" :width="15" :rotate="90" :value="circleValue" color="teal">
-                <img class="introImg" src="@/static/boy.svg">
+            <transition appear name="fade"><v-progress-circular v-if="animationState==='loading'" :size="300" :width="15" :rotate="90" :value="circleValue" color="teal">
+                <img class="introImg bebeAnimado" src="@/static/boy.svg">
             </v-progress-circular></transition>
             <div ref="dtypedjs" class="dtypedjs"></div>
             <transition appear name="fade"><v-text-field ref="nameinput" v-if="animationState==='nameinput'" v-model="username" label="Nombre" color="#000"></v-text-field></transition>
@@ -13,13 +13,15 @@
             </v-btn></transition>
             </div>
             <div v-else>
-                <h1 class="display-1">HOLA OTRA VEZ</h1>
-                <h2 class="hola display-3">{{storedUsername}}</h2>
-                <transition appear name="fade"><div class="cElige"><v-btn to="/elige" color="primary">Empezar a elegir</v-btn></div></transition>
-                <transition appear name="fade"><div class="cNewUsername"><v-btn v-on:click.stop="cNewUsername" :loading="false" :disabled="false" color="error">No eres {{storedUsername}}?
+                <div><img class="bebeAnimado" src="/boy.svg"></div>
+                <h1 class="display-1">HOLA OTRA VEZ:</h1>
+                <h2 class="uname display-3">{{storedUsername}}</h2>
+                <transition appear name="fade"><div class="cElige"><v-btn to="/elige" color="primary" light>Empezar a elegir</v-btn></div></transition>
+                <transition appear name="fade"><div class="cNewUsername"><v-btn v-on:click.stop="cNewUsername" :loading="false" :disabled="false" color="error">¿No eres {{storedUsername}}?
                 </v-btn></div></transition>
             </div>
         </div>
+        <v-snackbar :timeout="4000" :bottom="true" v-model="snackbar">Pon un nombre decente</v-snackbar>
     </div>
 </template>
 
@@ -30,6 +32,7 @@
         components: { FondoNubes },
         data() {
             return {
+                snackbar: false,
                 username: '',
                 animationState: 'loading',
                 typedInstance: null,
@@ -53,6 +56,10 @@
         },
         methods: {
             cName() {
+                if (this.username.trim().length < 3 || this.username.trim().length > 35) {
+                    this.snackbar = true
+                    return
+                }
                 this.hide = true
                 this.$store.commit('setUsername', this.username.trim())
                 if (localStorage.prevu) {
@@ -85,9 +92,9 @@
                     this.animationState = '1'
                     var options = {
                         strings: ['Hola!^2000',
-                            'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudarnos a elegir el nombre^2000',
+                            'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudarnos a elegir el nombre del niño.^2000',
                             'La opinion de los demás no nos importa^400, la elección del nombre será nues^1000',
-                            'La opinion de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra^2000. Pero si quieres participar...^2000',
+                            'La opinion de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
                             '¿Quien Eres?'
                         ],
                         typeSpeed: 40,
@@ -162,6 +169,12 @@
         z-index: 2;
     }
 
+    @media screen and (min-width: 900px) {
+        .container {
+            max-width: 50%;
+        }
+    }
+
     .introImg {
         width: 100%;
         height: auto;
@@ -189,6 +202,41 @@
 
     .cNewUsername {
         margin: 40px auto;
+    }
+
+    .uname {
+        border: 4px solid #22637b;
+        padding: 3px 22px;
+        display: inline;
+    }
+
+    .bebeAnimado {
+        position: relative;
+        width: 200px;
+        height: auto;
+        animation-name: babymovement;
+        animation-iteration-count: infinite;
+        animation-duration: 4s;
+    }
+
+    @keyframes babymovement {
+        0% {
+            left: 0;
+            transform: rotateX(0deg);
+            transform: rotateZ(0deg);
+        }
+        25% {
+            left: -2px;
+            transform: rotateX(20deg) rotateZ(3deg);
+        }
+        50% {
+            left: 2px;
+            transform: rotateX(-15deg) rotateZ(-3deg);
+        }
+        100% {
+            left: 0;
+            transform: rotateX(0deg) rotateZ(0deg);
+        }
     }
 
 </style>
