@@ -1,7 +1,8 @@
 <template>
     <v-container grid-list-md>
         <h1>Lista</h1>
-        <v-data-table :headers="headers" :loading="false" :rows-per-page-items="[10]" :items="nameList" class="elevation-1">
+        <p>* Rating por sistema de puntuación ELO</p>
+        <v-data-table :headers="headers" :loading="false" disable-initial-sort :rows-per-page-items="[10]" :items="nameList" class="elevation-1">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
                 <td class="text-xs-right">{{ props.item.rating }}</td>
@@ -20,7 +21,7 @@
 <h1>Añadir nombre</h1>
 <AniadirNombre />
 <v-dialog v-model="nedry" max-width="500px">
-     <Nedry />   
+    <Nedry />
 </v-dialog>
 <audio v-if="nedry" src="/you-didnt-say-the-magic-word.mp3" autoplay loop></audio>
 </v-container>
@@ -39,8 +40,9 @@
                 adm: true,
                 headers: [
                     { text: 'Nombre', align: 'left', sortable: false, value: 'name' },
-                    { text: 'Rating (Sistema de puntuación Elo)', align: 'right', value: 'rating' },
-                    { text: 'Numero de veces votado', align: 'right', value: 'i' }
+                    { text: 'Rating', align: 'right', value: 'rating' },
+                    { text: 'Nº veces votado', align: 'right', value: 'i' },
+                    { text: 'Borrar', align: 'center', value: 'i', sortable: false, width: 30 }
                 ]
             }
         },

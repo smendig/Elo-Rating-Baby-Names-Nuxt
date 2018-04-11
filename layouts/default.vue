@@ -11,7 +11,7 @@
     <v-content>
         <nuxt/>
     </v-content>
-    <v-footer app>RaiSabin Creations©</v-footer>
+    <v-footer color="primary" class="footer" app>RaiSabin Creations©</v-footer>
     </v-app>
 </template>
 
@@ -34,11 +34,14 @@
 
 </script>
 
-<style>
+<style scoped>
     .imgnino {
         max-height: 100%;
         width: 50px;
         margin: 0px 20px;
+    }
+    .footer{
+        padding: 0px 10px;
     }
 
 </style>
