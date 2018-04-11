@@ -19,18 +19,24 @@
 <div style="margin:10px"></div>
 <h1>Añadir nombre</h1>
 <AniadirNombre />
+<v-dialog v-model="nedry" max-width="500px">
+     <Nedry />   
+</v-dialog>
+<audio v-if="nedry" src="/you-didnt-say-the-magic-word.mp3" autoplay loop></audio>
 </v-container>
 </template>
 
 <script>
     import axios from '~/plugins/axios'
     import AniadirNombre from '@/components/AniadirNombre.vue'
+    import Nedry from '@/components/Nedry.vue'
     export default {
-        components: { AniadirNombre },
+        components: { AniadirNombre, Nedry },
         data() {
             return {
                 waitingServerResponse: false,
-                adm: false,
+                nedry: false,
+                adm: true,
                 headers: [
                     { text: 'Nombre', align: 'left', sortable: false, value: 'name' },
                     { text: 'Rating (Sistema de puntuación Elo)', align: 'right', value: 'rating' },
@@ -45,20 +51,23 @@
             if (this.nameList.length < 2) {
                 this.$store.dispatch('updateList')
             }
-            if (this.$route.query.adm === '1') { this.adm = true }
         },
         methods: {
             deleteItem(i) {
-                console.log(i)
                 if (this.waitingServerResponse) { return }
-                this.waitingServerResponse = true
-                axios.post('/api/deletename', { name: i.name }).then((d) => {
-                    this.$store.commit('setNamelist', d.data)
-                    this.waitingServerResponse = false
-                }).catch(e => {
-                    console.log(e.response)
-                    this.waitingServerResponse = false
-                })
+                if (!localStorage || !localStorage.token) {
+                    this.nedry = true
+                } else {
+                    console.log(i)
+                    this.waitingServerResponse = true
+                    axios.post('/api/deletename', { name: i.name, token: localStorage.token }).then((d) => {
+                        this.$store.commit('setNamelist', d.data)
+                        this.waitingServerResponse = false
+                    }).catch(e => {
+                        console.log(e.response)
+                        this.waitingServerResponse = false
+                    })
+                }
             }
         },
         watch: {}

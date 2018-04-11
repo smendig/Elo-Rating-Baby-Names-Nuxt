@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "raisabinbabynamenuxt",
+  "private_key_id": "245ee8eb62676c0539218093e53848362c846ef6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCouhGjEDRjDvl/\n7lb3DvSuTjusNP3BLyA8JKFmw3+OFbbDp4xM86hJflO9/RGF6Gi6IfhYsr4Dxjux\nipl+ULxNRMiFTTZbuZIcWHA35bHGxv/O+c01U1MUQHSwob7BXNDi+KctgGuVm8sl\n+5jgZh1E99LA0BP6Kc5CqiDUdkgCDv7xEK/7vKfoZi2sXPZBj7xqUiKF5G7Sn6AS\nj67X29zTUMqBhrJHD8sjlDiFfjAxCXRxhIcTdypq12KlVVe11ovdOSG33pL0bCoM\nZPyEISVl5IklKxLbFPvb8d8WBaHVMxSmMO7YefGeXLzh+yNr/phFNXTUhvxI54Rv\njxNSdknxAgMBAAECggEAOHs1HTt29fQU1F0CMqkIgnMA6chBa9JtPYTbnM1z3Snq\nqPtk7XuhSZzmxpI5M/TVXf2yJ2sKTbQl1mx5rn2zU0Bjya/Lsw/fV+rJAgU7qjmC\nd5RKu/+dL4nWJiy28P6zlE89k29KVGY3LotXJUM5qBU3sUDWdydYext9avH/b+Ru\ncHEyLJnLATgbZaKhaUjQAQ8mOf2BZRnl+fgsbLABRT3IbT4nRL79ahMuvGv+uM5b\nH+Uajzlbzfc+62o5yuspWRFDUEHr22xcyOSSPSlGiTkI5fEFFW6P2BwW1gAoteFb\nJAAxZLKxAgszfDwRcvE5xjIlX6uLFOOShqUcaK69ewKBgQDkiFdJiPXSKFb9RDZ5\nn8xqDk3Zv7O7G6xCsP0jTuJq7mNiu2+3NPkrnwAhnEk6adiGBzyPmbzUwpPFurko\nqxOmT+CtrJbpVRy/BfkpZlU3fI590p37wHtPW6AA9dYTPh8wg4l8nigEIlO7Lx1I\n60046I0EtN5irsxdBr5oAGPQXwKBgQC9AZSbRTctR3WGVB1Hi3p7BYHGaBs6AYMU\nPdKgY59vynwddaYQ0SXABWWnrNcsvcd5Qu+88Kc868w6mnc/vpex64fKOCH86Vdu\nprJEz3fnjscz6c4yceTuAkisU8k8K/Go8jTXK+/gaxhf1Uid41clON7AHd/MFTHN\n71nfXF/HrwKBgBKhpvQgzWG/1i+5wvMxevnehqxM+7sya13Yjhq10LHFE6c1/sqh\n7/qFcP5Mfo/bl0J+DorqjsGNx3xkV7ogEG8LrhaarocBYGGWfBTK+gGXDwrlA+pF\nbAgxQR8y66wP8X0EDE5zmnGT1t243ptWS6prEywiDste0tx2s0lJVtnjAoGAZNLD\nA1EY7f6Aoveb5t5wp894Ou6uF3NXCSUxhn2eP3Q0YUKxI6duC9DVOWzqG+Pg1L7w\nREnb7JOcjmZ31nlFUpPiC+2Fs/SFv3ENB8fknpF7kiXW6PH4vT5aphLL9l06vHT3\n2xCFFaILjpOn+RGdGy4LJVDKYYOs3b4goxYTweECgYB3jLpFrfD5T5kSf+FtC1DC\nJ8Sg1+4/YS4xNhO5uePT//L4csKhWkgCwVu2r0scXA/KlaNKByBKZ2ufFIM+oB4f\n1YWNMvaZwwDqaQWa/bPVqCHs3coSpSf26cqw4727CsTgq3FcmNADhequjLaZ75k2\nMvP+rJn+D4zBGOL5c/6gAg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "nuxt-3@raisabinbabynamenuxt.iam.gserviceaccount.com",
+  "client_id": "105518600309398277650",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nuxt-3%40raisabinbabynamenuxt.iam.gserviceaccount.com"
+}

@@ -1,6 +1,7 @@
 <template>
     <div id="intro">
-        <div class="container">
+        <FondoNubes />
+        <div v-if="!hide" class="container">
             <div v-if="!storedUsername">
             <transition appear name="fade"><v-progress-circular v-if="animationState==='loading'" :size="400" :width="15" :rotate="90" :value="circleValue" color="teal">
                 <img class="introImg" src="@/static/boy.svg">
@@ -24,14 +25,16 @@
 
 <script>
     import Typed from 'typed.js'
+    import FondoNubes from '@/components/FondoNubes.vue'
     export default {
-        components: {},
+        components: { FondoNubes },
         data() {
             return {
                 username: '',
                 animationState: 'loading',
                 typedInstance: null,
-                circleValue: 0
+                circleValue: 0,
+                hide: false
             }
         },
         computed: {
@@ -50,6 +53,7 @@
         },
         methods: {
             cName() {
+                this.hide = true
                 this.$store.commit('setUsername', this.username.trim())
                 this.$router.push({ path: '/elige' })
             },
@@ -148,7 +152,9 @@
         /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     }
 
-    .container {}
+    .container {
+        z-index: 2;
+    }
 
     .introImg {
         width: 100%;
