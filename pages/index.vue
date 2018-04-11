@@ -82,9 +82,9 @@
                     this.animationState = '1'
                     var options = {
                         strings: ['Hola!^2000',
-                            'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudar a elegir el nombre^2000',
+                            'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudarnos a elegir el nombre^2000',
                             'Tu opinion no nos importa^400, la elección del nombre será nues^1000',
-                            'Tu opinion no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quien seas)</span>, la elección del nombre será nuestra^2000',
+                            'Tu opinion no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quien seas)</span>, la elección del nombre será nuestra^2000. No se trata de que sea lo que elija la mayoría. pero bueno, ya que está hecho...',
                             '¿Quien Eres?'
                         ],
                         typeSpeed: 4,
