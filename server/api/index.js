@@ -88,25 +88,36 @@ const limiter1 = new RateLimit({
     windowMs: 10 * 1000,
     max: 15,
     delayAfter: 3,
+    delayMs: 1000
+})
+
+const limiter2 = new RateLimit({
+    windowMs: 20 * 1000,
+    max: 4,
+    delayAfter: 1,
     delayMs: 2000
 })
 
 router.get('/rank', (req, res) => { res.send(db) })
-router.post('/choose',limiter1, bodyParser.json(), (req, res) => {
+router.post('/choose', limiter1, bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
     elo.computeChoose(req.body.battle)
     sheets.votos.addRow(getIdObject('votos', req), (err) => { if (err) { console.log(err) } })
     res.send(db)
 })
-router.post('/addname', bodyParser.json(), (req, res) => {
+router.post('/addname', limiter2, bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
     sheets.nuevos.addRow(getIdObject('nuevos', req), (err) => { if (err) { console.log(err) } })
     if (!elo.addName(req.body)) { res.status(409).send('Already exists') } else { res.send(db) }
 })
-router.post('/deletename', bodyParser.json(), (req, res) => {
+router.post('/deletename', limiter2, bodyParser.json(), (req, res) => {
     if (!checkValid(req.body)) { return res.status(403).send('Bad petition') }
     sheets.deletes.addRow(getIdObject('deletes', req), (err) => { if (err) { console.log(err) } })
     if (req.body.token !== 'sabinyangraisayin') { res.status(401).send('Unauth') } else if (!elo.deleteName(req.body)) { res.status(409).send('Doesnt exists') } else { res.send(db) }
+})
+
+router.get('/ip', (req, res) => {
+    res.send(req.ip)
 })
 
 export default router
