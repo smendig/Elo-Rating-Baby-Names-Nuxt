@@ -14,3 +14,4 @@ dist
 build
 
 /server/api/db.json
+server/api/db.json
