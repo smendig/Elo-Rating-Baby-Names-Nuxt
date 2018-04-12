@@ -98,7 +98,7 @@
                             'La opinión de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
                             '¿Quién Eres?'
                         ],
-                        typeSpeed: 4,
+                        typeSpeed: 40,
                         startDelay: 1500,
                         onComplete: () => {
                             this.typedInstance.destroy()
