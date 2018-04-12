@@ -1,8 +1,10 @@
 <template>
     <v-container grid-list-md>
-        <UltimoVoto />
-        <UltimoAniadido />
-        <v-tabs v-model="active" color="primary" dark slider-color="pink">
+        <div class="cUltimos">
+            <UltimoVoto />
+            <UltimoAniadido />
+        </div>
+        <v-tabs v-model="active" color="primary" dark slider-color="pink" grow>
             <v-tab ripple>Tu Ranking</v-tab>
             <v-tab-item>
                 <RankingLocal />
@@ -56,6 +58,15 @@
     .bAniadir {
         float: right;
         margin: 10px 5px 10px 20px;
+    }
+
+    .cUltimos {
+        display: flex;
+        text-align: center;
+    }
+
+    .cUltimos>* {
+        flex: 1 1 50%;
     }
 
 </style>

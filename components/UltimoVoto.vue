@@ -1,19 +1,12 @@
 <template>
-    <v-container v-if="ultimoVoto.user" class="c" grid-list-md>
-        <v-card color="primary">
-            <v-card-media height="200px" >
-                <v-container fill-height fluid>
-                    <v-layout fill-height>
-                        <v-flex xs12 align-end flexbox>
-                            <span class="headline white--text" v-text="'Último Voto'"></span>
-                            <div>Votado {{ultimoVoto.b[0].name}} frente a {{ultimoVoto.b[1].name}}</div>
-                            <div>Por {{ultimoVoto.user}} a las {{(new Date(ultimoVoto.time)).toLocaleTimeString()}}</div>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-            </v-card-media>
-        </v-card>
-    </v-container>
+    <div v-if="ultimoVoto.user">
+        <div class="tit">Último Voto</div>
+        <div>Gana <span class="d1">{{ultimoVoto.b[0].name}}</span> a <span class="d1">{{ultimoVoto.b[1].name}}</span></div>
+        <div class="d3">
+        <div><span class="d4">{{ultimoVoto.user}}</span></div>
+        <div>A las {{(new Date(ultimoVoto.time)).toLocaleTimeString()}}</div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -35,6 +28,21 @@
 </script>
 
 <style scoped>
+    .tit {
+        font-size: 17px;
+        color: #07176b;
+    }
 
+    .d1{
+        color: #c30000;
+    }
+
+    .d4{
+        color: #07176b;
+    }
+
+    .d3{
+        margin:10px;
+    }
 
 </style>

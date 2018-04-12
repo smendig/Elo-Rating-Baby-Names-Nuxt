@@ -1,10 +1,10 @@
 <template>
 <v-container grid-list-md>
-    <h2>Esta es tu clasificación, basado los en los votos que sólo tú has hecho:</h2>
+    <h4>Esta es tu clasificación, basado los en los votos que sólo tú has hecho:</h4>
         <v-btn class="bBorraLocal" @click="resetLocal">Borra tu ranking</v-btn>
         <v-text-field class="filtroglobal"
         append-icon="search"
-        label="Filtro"
+        label="Buscar"
         single-line
         hide-details
         v-model="searchFilterGlobal">

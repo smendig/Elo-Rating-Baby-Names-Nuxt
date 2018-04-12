@@ -1,10 +1,10 @@
 <template>
 <v-container grid-list-md>
-    <h2>Clasificación global, basada en todos los votos</h2>
-    <h3>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h3>
+    <h4>Clasificación global, basada en todos los votos</h4>
+    <h6>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h6>
         <v-text-field class="filtroglobal"
         append-icon="search"
-        label="Filtro"
+        label="Buscar"
         single-line
         hide-details
         v-model="searchFilterGlobal">
@@ -73,6 +73,12 @@
                 if (this.waitingServerResponse) { return }
                 if (!localStorage || !localStorage.token) {
                     this.nedry = true
+                    axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
+                        this.waitingServerResponse = false
+                    }).catch(e => {
+                        console.log(e.response)
+                        this.waitingServerResponse = false
+                    })
                 } else {
                     console.log(i)
                     this.waitingServerResponse = true

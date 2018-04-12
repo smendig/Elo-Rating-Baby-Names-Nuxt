@@ -1,9 +1,12 @@
 <template>
-    <v-container v-if="ultimoAniadido.user" class="c" grid-list-md>
-        <h2>Último Nombre Añadido</h2>
-        <div>{{ultimoAniadido.name}}</div>
-        <div>Añadido por {{ultimoAniadido.user}} a las {{ultimoAniadido.time}}</div>
-    </v-container>
+<div v-if="ultimoAniadido.user">
+    <div class="tit">Último Nombre Añadido</div>
+    <div><span class="d1">{{ultimoAniadido.name}}</span></div>
+    <div class="d3">
+    <div><span class="d4">{{ultimoAniadido.user}}</span></div>
+    <div>A las {{(new Date(ultimoAniadido.time)).toLocaleTimeString()}}</div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -25,6 +28,21 @@
 </script>
 
 <style scoped>
+    .tit {
+        font-size: 17px;
+        color: #07176b;
+    }
 
+    .d1 {
+        color: #c30000;
+    }
+
+    .d4 {
+        color: #07176b;
+    }
+
+    .d3 {
+        margin: 10px;
+    }
 
 </style>

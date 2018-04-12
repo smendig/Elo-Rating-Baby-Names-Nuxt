@@ -7,12 +7,12 @@ const RateLimit = require('express-rate-limit')
 const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU')
 
 let sheets = { votos: null, deletes: null, nuevos: null }
-
 let db = JSON.parse(fs.readFileSync('./server/api/db.json'))
 let stats = {
     ultimoVoto: { user: null, b: null, time: null },
     ultimoAniadido: { user: null, name: null, time: null }
 }
+let saveTimeout = null
 
 doc.useServiceAccountAuth(require('./cred.json'), function(err) {
     if (err) { console.log(err) }
@@ -43,24 +43,34 @@ const elo = {
             i2.rating -= rDelta
             i1.i += 1
             i2.i += 1
-            fs.writeFileSync('./server/api/db.json', JSON.stringify(db))
+            elo.saveToFile()
         }
     },
     addName(d) {
         let nTrimmed = d.name.trim()
         if (db.find(i => i.name === nTrimmed)) { return false }
         db.push({ rating: 1500, name: nTrimmed, i: 0 })
-        fs.writeFileSync('./server/api/db.json', JSON.stringify(db))
+        elo.saveToFile()
         return true
     },
     deleteName(d) {
         let i = db.findIndex(i => i.name === d.name)
         if (i >= 0) {
             db.splice(i, 1)
-            fs.writeFileSync('./server/api/db.json', JSON.stringify(db))
+            elo.saveToFile()
             return true
         }
         return false
+    },
+    saveToFile() {
+        console.log('File Save Programado')
+        if (saveTimeout) { clearTimeout(saveTimeout) }
+        saveTimeout = setTimeout(() => {
+            fs.writeFile('./server/api/db.json', JSON.stringify(db), (e) => {
+                if (e) { console.log(e) } else { console.log('File Save') }
+            })
+            saveTimeout = null
+        }, 15000)
     }
 }
 
@@ -100,15 +110,15 @@ function checkValid(tipo, b) {
 
 const limiter1 = new RateLimit({
     windowMs: 10 * 1000,
-    max: 15,
-    delayAfter: 3,
+    max: 25,
+    delayAfter: 10,
     delayMs: 1000
 })
 
 const limiter2 = new RateLimit({
     windowMs: 20 * 1000,
-    max: 4,
-    delayAfter: 1,
+    max: 10,
+    delayAfter: 5,
     delayMs: 2000
 })
 
@@ -131,7 +141,7 @@ router.post('/addname', limiter2, bodyParser.json(), (req, res) => {
 router.post('/deletename', limiter2, bodyParser.json(), (req, res) => {
     if (!checkValid('deletename', req.body)) { return res.status(403).send('Bad petition') }
     sheets.deletes.addRow(getIdObject('deletes', req), (err) => { if (err) { console.log(err) } })
-    if (req.body.token !== 'sabinyangraisayin') { res.status(401).send('Unauth') } else if (!elo.deleteName(req.body)) { res.status(409).send('Doesnt exists') } else { res.send(db) }
+    if (req.body.token !== 'sabinyangraisayin') { res.status(401).send('Hey, no intentes borrar nombres') } else if (!elo.deleteName(req.body)) { res.status(409).send('Doesnt exists') } else { res.send(db) }
 })
 
 router.get('/ultimovoto', (req, res) => { res.send(stats.ultimoVoto) })

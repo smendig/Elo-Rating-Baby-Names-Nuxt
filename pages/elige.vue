@@ -7,7 +7,7 @@
                         <v-flex xs12><h1 class="msg1">Van a salir nombres aleatoriamente</h1></v-flex>
                     </v-layout></transition>
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===2" row>
-                        <v-flex xs12><h1 class="msg2">Elige el que <span style="color:#052042">más te guste</span> de los 2</h1></v-flex>
+                        <v-flex xs12><h1 class="msg2">Elige el que <span style="color: #c30000">más te guste</span> de los 2</h1></v-flex>
                     </v-layout></transition>
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===5" row>
                         <v-flex class="cFinVotacion" xs12>
