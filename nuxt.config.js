@@ -1,3 +1,5 @@
+const CompressionPlugin = require("compression-webpack-plugin")
+
 module.exports = {
     head: {
         title: 'RaiSabin Baby Name',
@@ -21,6 +23,9 @@ module.exports = {
     plugins: ['~plugins/vuetify', { src: '~/plugins/localStorage.js', ssr: false }],
     build: {
         vendor: ['axios'],
+        plugins: [
+            new CompressionPlugin()
+        ],
         extend(config, ctx) {
             if (ctx.isClient) {
                 config.module.rules.push({

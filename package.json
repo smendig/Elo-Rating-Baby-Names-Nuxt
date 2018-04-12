@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "compression-webpack-plugin": "^1.1.11",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
@@ -26,9 +27,11 @@
     "sass-loader": "^6.0.7",
     "source-map-support": "^0.5.4",
     "typed.js": "^2.0.6",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "vue-style-loader": "^4.1.0",
     "vuetify": "^1.0.14",
-    "vuex-persistedstate": "^2.5.2"
+    "vuex-persistedstate": "^2.5.2",
+    "webpack-bundle-analyzer": "^2.11.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
