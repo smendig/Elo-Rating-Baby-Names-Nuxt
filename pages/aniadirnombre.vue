@@ -56,7 +56,8 @@
                 })
             }
         },
-        watch: {}
+        watch: {},
+        transition: 'fadeoutfast'
     }
 
 </script>

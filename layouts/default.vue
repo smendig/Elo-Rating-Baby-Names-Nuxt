@@ -1,6 +1,7 @@
 <template>
     <v-app>
-    <v-toolbar app color="primary">
+    <transition name="fadeoutfast">
+    <v-toolbar v-if="$route.path!=='/'" app color="primary">
         <v-toolbar-title><router-link to="/"><img class="imgnino" src="@/static/boy.svg"></router-link></v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items>
@@ -8,10 +9,13 @@
             <v-btn flat to="/resultados">Resultados</v-btn>
         </v-toolbar-items>
     </v-toolbar>
+    </transition>
     <v-content>
         <nuxt/>
     </v-content>
-    <v-footer color="primary" class="footer" app>RaiSabin Creations©</v-footer>
+    <transition name="fadeoutfast">
+    <v-footer v-if="$route.path!=='/'" color="primary" class="footer" app>RaiSabin Creations©</v-footer>
+    </transition>
     </v-app>
 </template>
 
@@ -31,7 +35,6 @@
 
         },
         created() {
-            console.log(this.localRanking)
             if (this.localRanking instanceof Array) { this.$store.commit('resetLocalRanking', this.username) }
 
             this.$vuetify.theme.primary = '#9FA8DA'

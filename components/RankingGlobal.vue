@@ -34,7 +34,7 @@
 </v-data-table>
 <p>* Rating por sistema de puntuación ELO</p>
 <v-dialog v-model="nedry" max-width="500px">
-    <Nedry />
+    <Nedry v-if="nedry" />
 </v-dialog>
 </v-container>
 </template>
@@ -75,8 +75,7 @@
                     this.nedry = true
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
                         this.waitingServerResponse = false
-                    }).catch(e => {
-                        console.log(e.response)
+                    }).catch(() => {
                         this.waitingServerResponse = false
                     })
                 } else {
@@ -92,15 +91,7 @@
                 }
             }
         },
-        watch: {
-            nedry(v) {
-                if (v) {
-                    audio.play()
-                } else {
-                    audio.pause()
-                }
-            }
-        }
+        watch: {}
     }
 
 </script>

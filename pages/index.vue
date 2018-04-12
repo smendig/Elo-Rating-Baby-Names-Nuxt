@@ -121,7 +121,7 @@
             }
         },
         watch: {},
-        layout: 'empty'
+        transition: 'fadeoutfast'
     }
 
 </script>

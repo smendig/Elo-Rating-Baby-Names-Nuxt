@@ -128,7 +128,8 @@
                 setTimeout(() => { this.animationStep = 4 }, 1000)
             }
         },
-        watch: {}
+        watch: {},
+        transition: 'fadeoutfast'
     }
 
 </script>

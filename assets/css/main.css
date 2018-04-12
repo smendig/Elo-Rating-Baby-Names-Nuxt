@@ -57,3 +57,16 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+
+.fadeoutfast-enter-active {
+  transition: all .5s ease;
+}
+
+.fadeoutfast-leave-active {
+  transition: all .3s;
+}
+
+.fadeoutfast-enter,
+.fadeoutfast-leave-to {
+  opacity: 0;
+}

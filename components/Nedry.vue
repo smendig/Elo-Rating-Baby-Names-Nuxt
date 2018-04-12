@@ -1,6 +1,8 @@
 <template>
     <v-container class="c" grid-list-md>
-        <img src="/nedry.gif">
+        <video controls autoplay loop>
+            <source src="/nedry.mp4" type="video/mp4">
+        </video>
     </v-container>
 </template>
 
@@ -10,9 +12,7 @@
         data() {
             return {}
         },
-        computed: {
-            nameList() { return this.$store.state.nameList }
-        },
+        computed: {},
         created() {},
         methods: {},
         watch: {}
