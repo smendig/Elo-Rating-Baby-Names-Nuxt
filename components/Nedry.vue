@@ -1,6 +1,6 @@
 <template>
     <v-container class="c" grid-list-md>
-        <video controls autoplay loop>
+        <video controls autoplay muted loop>
             <source src="/nedry.mp4" type="video/mp4">
         </video>
     </v-container>
