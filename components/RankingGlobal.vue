@@ -1,7 +1,7 @@
 <template>
 <v-container grid-list-md>
-    <h1>Ranking Global</h1>
-        <p>* Rating por sistema de puntuación ELO</p>
+    <h2>Clasificación global, basada en todos los votos</h2>
+    <h3>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h3>
         <v-text-field class="filtroglobal"
         append-icon="search"
         label="Filtro"
@@ -15,6 +15,7 @@
         :rows-per-page-items="[10]" 
         :items="nameList" 
         :search="searchFilterGlobal"
+        no-data-text="No hay datos"
         no-results-text="No existe"
         disable-initial-sort 
         class="elevation-1">
@@ -31,19 +32,18 @@
                 {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
 </v-data-table>
+<p>* Rating por sistema de puntuación ELO</p>
 <v-dialog v-model="nedry" max-width="500px">
     <Nedry />
 </v-dialog>
-<audio v-if="nedry" autoplay loop>
-    <source src="/you-didnt-say-the-magic-word.mp3" type="audio/mp3">
-    <source src="/you-didnt-say-the-magic-word.mov" type="audio/mpeg">
-</audio>
 </v-container>
 </template>
 
 <script>
     import axios from '~/plugins/axios'
     import Nedry from '@/components/Nedry.vue'
+    let audio = new Audio('/you-didnt-say-the-magic-word.mp3')
+    audio.loop = true
     export default {
         components: { Nedry },
         data() {
@@ -59,8 +59,9 @@
             }
         },
         computed: {
-            nameList() { return this.$store.state.nameList },
-            username() { return this.$store.state.per.username }
+            nameList() { return this.$store.state.nameList.sort((a, b) => b.rating - a.rating) },
+            username() { return this.$store.state.per.username },
+            prevu() { return this.$store.state.per.prevu }
         },
         created() {
             if (this.nameList.length < 2) {
@@ -75,7 +76,7 @@
                 } else {
                     console.log(i)
                     this.waitingServerResponse = true
-                    axios.post('/api/deletename', { uname: this.username, prevu: localStorage.prevu, name: i.name, token: localStorage.token }).then((d) => {
+                    axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name, token: localStorage.token }).then((d) => {
                         this.$store.commit('setNamelist', d.data)
                         this.waitingServerResponse = false
                     }).catch(e => {
@@ -85,7 +86,15 @@
                 }
             }
         },
-        watch: {}
+        watch: {
+            nedry(v) {
+                if (v) {
+                    audio.play()
+                } else {
+                    audio.pause()
+                }
+            }
+        }
     }
 
 </script>

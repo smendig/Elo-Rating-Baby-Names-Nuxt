@@ -15,7 +15,7 @@
             <div v-else>
                 <div><img class="bebeAnimado" src="/boy.svg"></div>
                 <h1 class="display-1">HOLA OTRA VEZ:</h1>
-                <h2 class="uname display-3">{{storedUsername}}</h2>
+                <div class="uname"><h2 class="">{{storedUsername}}</h2></div>
                 <transition appear name="fade"><div class="cElige"><v-btn to="/elige" color="primary" light>Empezar a elegir</v-btn></div></transition>
                 <transition appear name="fade"><div class="cNewUsername"><v-btn v-on:click.stop="cNewUsername" :loading="false" :disabled="false" color="error">¿No eres {{storedUsername}}?
                 </v-btn></div></transition>
@@ -28,6 +28,7 @@
 <script>
     import Typed from 'typed.js'
     import FondoNubes from '@/components/FondoNubes.vue'
+    import utils from '@/utils.js'
     export default {
         components: { FondoNubes },
         data() {
@@ -56,15 +57,15 @@
         },
         methods: {
             cName() {
-                if (this.username.trim().length < 3 || this.username.trim().length > 35) {
+                const un = this.username.trim()
+                console.log(utils.malas(un))
+                if (un.length < 3 || un.length > 35 || utils.malas(un)) {
                     this.snackbar = true
                     return
                 }
                 this.hide = true
                 this.$store.commit('setUsername', this.username.trim())
-                if (localStorage.prevu) {
-                    localStorage.prevu = localStorage.prevu + '||' + this.username.trim()
-                } else { localStorage.prevu = this.username.trim() }
+                this.$store.commit('addPrevu', this.username.trim())
                 this.$router.push({ path: '/elige' })
             },
             noUsernameAnimation() {
@@ -93,11 +94,11 @@
                     var options = {
                         strings: ['Hola!^2000',
                             'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudarnos a elegir el nombre del niño.^2000',
-                            'La opinion de los demás no nos importa^400, la elección del nombre será nues^1000',
-                            'La opinion de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
-                            '¿Quien Eres?'
+                            'La opinión de los demás no nos importa^400, la elección del nombre será nues^1000',
+                            'La opinión de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
+                            '¿Quién Eres?'
                         ],
-                        typeSpeed: 40,
+                        typeSpeed: 4,
                         startDelay: 1500,
                         onComplete: () => {
                             this.typedInstance.destroy()
@@ -115,9 +116,7 @@
             },
             cNewUsername() {
                 this.$store.commit('setUsername', '')
-                if (localStorage.prevu) {
-                    localStorage.prevu = localStorage.prevu + '||usernamereset'
-                }
+                this.$store.commit('addPrevu', 'usernamereset')
                 this.noUsernameAnimation()
             }
         },
@@ -213,7 +212,6 @@
     .uname {
         border: 4px solid #22637b;
         padding: 3px 22px;
-        display: inline;
     }
 
     .bebeAnimado {

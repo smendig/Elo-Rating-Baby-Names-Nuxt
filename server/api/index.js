@@ -9,6 +9,10 @@ const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU'
 let sheets = { votos: null, deletes: null, nuevos: null }
 
 let db = JSON.parse(fs.readFileSync('./server/api/db.json'))
+let stats = {
+    ultimoVoto: { user: null, b: null, time: null },
+    ultimoAniadido: { user: null, name: null, time: null }
+}
 
 doc.useServiceAccountAuth(require('./cred.json'), function(err) {
     if (err) { console.log(err) }
@@ -113,12 +117,14 @@ router.post('/choose', limiter1, bodyParser.json(), (req, res) => {
     if (!checkValid('choose', req.body)) { return res.status(403).send('Bad petition') }
     elo.computeChoose(req.body.battle)
     sheets.votos.addRow(getIdObject('votos', req), (err) => { if (err) { console.log(err) } })
+    stats.ultimoVoto = { user: req.body.uname, b: req.body.battle, time: Date.now() }
     res.send(db)
 })
 router.post('/addname', limiter2, bodyParser.json(), (req, res) => {
     if (!checkValid('addname', req.body)) { return res.status(403).send('Bad petition') }
     if (!elo.addName(req.body)) { res.status(409).send('Already exists') } else {
         sheets.nuevos.addRow(getIdObject('nuevos', req), (err) => { if (err) { console.log(err) } })
+        stats.ultimoAniadido = { user: req.body.uname, name: req.body.name, time: Date.now() }
         res.send(db)
     }
 })
@@ -127,6 +133,9 @@ router.post('/deletename', limiter2, bodyParser.json(), (req, res) => {
     sheets.deletes.addRow(getIdObject('deletes', req), (err) => { if (err) { console.log(err) } })
     if (req.body.token !== 'sabinyangraisayin') { res.status(401).send('Unauth') } else if (!elo.deleteName(req.body)) { res.status(409).send('Doesnt exists') } else { res.send(db) }
 })
+
+router.get('/ultimovoto', (req, res) => { res.send(stats.ultimoVoto) })
+router.get('/ultimoaniadido', (req, res) => { res.send(stats.ultimoAniadido) })
 
 router.get('/ip', (req, res) => {
     res.send(req.ip)

@@ -7,6 +7,12 @@ body {
   background-color: #d9deff;
 }
 
+.flexcenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .application--wrap {
   background-color: #d9deff;
 }

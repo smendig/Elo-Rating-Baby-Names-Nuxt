@@ -4,15 +4,15 @@
             <v-flex xs12>
                 <v-container class="c1">
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===1||animationStep===2" row>
-                        <v-flex xs12><h1>Van a salir nombres aleatoriamente</h1></v-flex>
+                        <v-flex xs12><h1 class="msg1">Van a salir nombres aleatoriamente</h1></v-flex>
                     </v-layout></transition>
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===2" row>
-                        <v-flex xs12><h1>Elige el que mas te guste de los 2</h1></v-flex>
+                        <v-flex xs12><h1 class="msg2">Elige el que <span style="color:#052042">más te guste</span> de los 2</h1></v-flex>
                     </v-layout></transition>
                     <transition appear name="slideup-fade"><v-layout v-if="animationStep===5" row>
                         <v-flex class="cFinVotacion" xs12>
                             <h1>Gracias por participar.</h1>
-                            <h1>Esta votación no será tenida en cuenta para la decisión.</h1>
+                            <h1>Esta votación no se tendrá en cuenta para la decisión final.</h1>
                             <img src="/boy.svg">
                             <h1>O igual si...</h1>
                             <v-btn @click="retry"><v-icon color="pink">replay</v-icon>Seguir Votando</v-btn>
@@ -57,9 +57,9 @@
         computed: {
             nameList() { return this.$store.state.nameList },
             username() { return this.$store.state.per.username },
-            localRanking() { return this.$store.state.per.localRanking },
             showIntro() { return this.$store.state.showIntro },
-            progressvalue() { return this.nOfVotes * 100 / this.nOfVotesMax }
+            progressvalue() { return this.nOfVotes * 100 / this.nOfVotesMax },
+            prevu() { return this.$store.state.per.prevu }
         },
         created() {
             function sleep(time) {
@@ -93,7 +93,7 @@
                 if (this.waitingServerResponse) { return }
                 this.waitingServerResponse = true
                 this.nOfVotes += 1
-                axios.post('/api/choose', { uname: this.username, prevu: localStorage.prevu, battle: n }).then((d) => {
+                axios.post('/api/choose', { uname: this.username, prevu: this.prevu, battle: n }).then((d) => {
                     this.$store.commit('setNamelist', d.data)
                     if (this.nOfVotes >= this.nOfVotesMax) {
                         this.animationStep = 0
@@ -110,7 +110,7 @@
                     console.log(e)
                     this.waitingServerResponse = false
                 })
-                this.$store.dispatch('localRankingCalc', n)
+                this.$store.dispatch('localRankingCalc', { u: this.username, n: n })
             },
             randomNames() {
                 if (this.nameList < 2) {
@@ -184,6 +184,14 @@
         animation-name: babymovement;
         animation-iteration-count: infinite;
         animation-duration: 4s;
+    }
+
+    .msg1 {
+        color: #143b6b;
+    }
+
+    .msg2 {
+        color: #143b6b;
     }
 
     @keyframes babymovement {

@@ -1,7 +1,7 @@
 <template>
-<v-container v-if="localRanking.length" grid-list-md>
-    <h1>Ranking Local</h1>
-        <p>* Rating por sistema de puntuación ELO</p>
+<v-container grid-list-md>
+    <h2>Esta es tu clasificación, basado los en los votos que sólo tú has hecho:</h2>
+        <v-btn class="bBorraLocal" @click="resetLocal">Borra tu ranking</v-btn>
         <v-text-field class="filtroglobal"
         append-icon="search"
         label="Filtro"
@@ -13,8 +13,9 @@
         :headers="headers" 
         :loading="false" 
         :rows-per-page-items="[10]" 
-        :items="localRanking" 
+        :items="uLocalRanking" 
         :search="searchFilterGlobal"
+        no-data-text="No hay datos, vota y aparecerá aquí la clasificación"
         no-results-text="No existe"
         disable-initial-sort 
         class="elevation-1">
@@ -27,6 +28,7 @@
                 {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
 </v-data-table>
+<p>* Rating por sistema de puntuación ELO</p>
 <v-dialog v-model="nedry" max-width="500px">
     <Nedry />
 </v-dialog>
@@ -55,10 +57,16 @@
         },
         computed: {
             username() { return this.$store.state.per.username },
-            localRanking() { return this.$store.state.per.localRanking }
+            uLocalRanking() {
+                if (this.username) { return this.$store.state.per.localRanking[this.username].sort((a, b) => b.rating - a.rating) }
+                return []
+            }
         },
         created() {},
         methods: {
+            resetLocal() {
+                this.$store.commit('resetUserLocalRanking', this.username)
+            }
         },
         watch: {}
     }
@@ -68,6 +76,11 @@
 <style scoped>
     .filtroglobal {
         width: 50%;
+    }
+
+    .bBorraLocal {
+        float: right;
+        max-width: 43%;
     }
 
 </style>

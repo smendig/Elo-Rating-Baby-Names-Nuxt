@@ -5,7 +5,7 @@
         <v-spacer></v-spacer>
         <v-toolbar-items>
             <v-btn flat to="/elige">Elige</v-btn>
-            <v-btn flat to="/lista">Ranking</v-btn>
+            <v-btn flat to="/resultados">Resultados</v-btn>
         </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -21,7 +21,19 @@
         data() {
             return {}
         },
+        computed: {
+            username() { return this.$store.state.per.username },
+            uLocalRanking() {
+                if (this.username) { return this.$store.state.per.localRanking[this.username].sort((a, b) => b.rating - a.rating) }
+                return []
+            },
+            localRanking() { return this.$store.state.per.localRanking }
+
+        },
         created() {
+            console.log(this.localRanking)
+            if (this.localRanking instanceof Array) { this.$store.commit('resetLocalRanking', this.username) }
+
             this.$vuetify.theme.primary = '#9FA8DA'
             this.$vuetify.theme.secondary = '#F06292'
             this.$vuetify.theme.accent = '#9c27b0'
@@ -40,7 +52,8 @@
         width: 50px;
         margin: 0px 20px;
     }
-    .footer{
+
+    .footer {
         padding: 0px 10px;
     }
 
