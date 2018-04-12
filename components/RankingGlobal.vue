@@ -93,7 +93,12 @@
                 }
             }
         },
-        watch: {}
+        watch: {
+            nedry(v) {
+                let vid = document.getElementById('nedvideo')
+                if (vid) { if (v) { vid.play() } else { vid.pause() } }
+            }
+        }
     }
 
 </script>
