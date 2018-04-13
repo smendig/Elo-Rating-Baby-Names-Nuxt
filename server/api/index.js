@@ -56,7 +56,7 @@ const elo = {
     },
     addName(d) {
         let nTrimmed = d.name.trim()
-        if (db.find(i => i.name === nTrimmed)) { return false }
+        if (db.find(i => i.name.toLowerCase() === nTrimmed.toLowerCase())) { return false }
         db.push({ rating: 1500, name: nTrimmed, i: 0 })
         elo.saveToFile()
         return true
