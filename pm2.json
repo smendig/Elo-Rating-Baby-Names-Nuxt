@@ -1,6 +1,6 @@
 {
     "name": "Elo-Nuxt",
     "cwd": "/root/node/elo-rating-baby-names-nuxt",
-    "script": "./build/main.js",
+    "script": "cross-env HOST=0.0.0.0 PORT=8013 ./build/main.js",
     "env": { "NODE_ENV": "production" }
 }
