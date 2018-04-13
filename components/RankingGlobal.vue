@@ -63,11 +63,7 @@
             username() { return this.$store.state.per.username },
             prevu() { return this.$store.state.per.prevu }
         },
-        created() {
-            if (this.nameList.length < 2) {
-                this.$store.dispatch('updateList')
-            }
-        },
+        created() {},
         methods: {
             deleteItem(i) {
                 if (this.waitingServerResponse) { return }

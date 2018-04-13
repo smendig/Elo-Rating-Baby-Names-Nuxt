@@ -4,7 +4,7 @@
             <UltimoVoto />
             <UltimoAniadido />
         </div>
-        <v-tabs v-model="active" color="primary" dark slider-color="pink" grow>
+        <v-tabs v-if="nameList.length>2" v-model="active" color="primary" dark slider-color="pink" grow>
             <v-tab ripple>Tu Ranking</v-tab>
             <v-tab-item>
                 <RankingLocal />
@@ -43,6 +43,7 @@
             if (!this.username) {
                 this.$router.push({ path: '/' })
             }
+            this.$store.dispatch('updateList')
         },
         methods: {},
         watch: {},

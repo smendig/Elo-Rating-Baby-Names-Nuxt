@@ -5,9 +5,17 @@ const fs = require('fs')
 const GoogleSpreadsheet = require('google-spreadsheet')
 const RateLimit = require('express-rate-limit')
 const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU')
+const dbFilePath = './server/api/db.json'
 
 let sheets = { votos: null, deletes: null, nuevos: null }
-let db = JSON.parse(fs.readFileSync('./server/api/db.json'))
+let db
+if (fs.existsSync(dbFilePath)) {
+    db = JSON.parse(fs.readFileSync(dbFilePath))
+} else {
+    db = []
+    fs.writeFileSync(dbFilePath, JSON.stringify(db))
+}
+
 let stats = {
     ultimoVoto: { user: null, b: null, time: null },
     ultimoAniadido: { user: null, name: null, time: null }
@@ -66,7 +74,7 @@ const elo = {
         console.log('File Save Programado')
         if (saveTimeout) { clearTimeout(saveTimeout) }
         saveTimeout = setTimeout(() => {
-            fs.writeFile('./server/api/db.json', JSON.stringify(db), (e) => {
+            fs.writeFile(dbFilePath, JSON.stringify(db), (e) => {
                 if (e) { console.log(e) } else { console.log('File Save') }
             })
             saveTimeout = null

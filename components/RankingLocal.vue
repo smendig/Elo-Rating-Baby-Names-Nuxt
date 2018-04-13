@@ -58,7 +58,7 @@
         computed: {
             username() { return this.$store.state.per.username },
             uLocalRanking() {
-                if (this.username) { return this.$store.state.per.localRanking[this.username].sort((a, b) => b.rating - a.rating) }
+                if (this.username && this.$store.state.per.localRanking && this.$store.state.per.localRanking[this.username].length > 1) { return this.$store.state.per.localRanking[this.username].sort((a, b) => b.rating - a.rating) }
                 return []
             }
         },
