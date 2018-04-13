@@ -1,0 +1,6 @@
+{
+    "name": "Elo-Nuxt",
+    "cwd": "/root/node/elo-rating-baby-names-nuxt",
+    "script": "./build/main.js",
+    "env": { "NODE_ENV": "production" }
+}
