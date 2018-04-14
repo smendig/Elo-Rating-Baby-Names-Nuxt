@@ -43,8 +43,6 @@
 <script>
     import axios from '~/plugins/axios'
     import Nedry from '@/components/Nedry.vue'
-    let audio = new Audio('/you-didnt-say-the-magic-word.mp3')
-    audio.loop = true
     export default {
         components: { Nedry },
         data() {

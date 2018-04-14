@@ -32,10 +32,6 @@
 <v-dialog v-model="nedry" max-width="500px">
     <Nedry />
 </v-dialog>
-<audio v-if="nedry" autoplay loop>
-    <source src="/you-didnt-say-the-magic-word.mp3" type="audio/mp3">
-    <source src="/you-didnt-say-the-magic-word.mov" type="audio/mpeg">
-</audio>
 </v-container>
 </template>
 
