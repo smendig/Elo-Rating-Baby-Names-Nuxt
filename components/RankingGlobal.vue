@@ -70,6 +70,7 @@
             deleteItem(i) {
                 if (this.waitingServerResponse) { return }
                 if (!localStorage || !localStorage.token) {
+                    document.getElementById('nedvideo').play()
                     this.$store.commit('setNedry', true)
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
                         this.waitingServerResponse = false

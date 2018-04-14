@@ -22,7 +22,7 @@
         watch: {
             nedry(v) {
                 this.nedryDialog = this.nedry
-                if (v) { this.$refs.nedry.play() } else { this.$refs.nedry.pause() }
+                if (v) { } else { this.$refs.nedry.pause() }
             },
             nedryDialog(v) {
                 if (!v) {
