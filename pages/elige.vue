@@ -177,8 +177,6 @@
         width: 100%;
     }
 
-    .cFinVotacion {}
-
     .cFinVotacion img {
         position: relative;
         width: 200px;
