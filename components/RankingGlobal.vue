@@ -1,7 +1,7 @@
 <template>
 <v-container grid-list-md>
     <h4>Clasificación global, basada en todos los votos</h4>
-    <h6>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h6>
+    <h5>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h5>
         <v-text-field class="filtroglobal"
         append-icon="search"
         label="Buscar"
@@ -21,7 +21,7 @@
         class="elevation-1">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
-                <td class="text-xs-right">{{(props.item.i>3)?props.item.rating+props.item.i:'-'}}</td>
+                <td class="text-xs-right">{{(props.item.i>3)?props.item.rating+props.item.s:'-'}}</td>
                 <td class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                         <v-icon color="pink">delete</v-icon>
@@ -62,8 +62,8 @@
                 return this.$store.state.nameList.sort((a, b) => {
                     let a2
                     let b2
-                    if (a.i > 4) { a2 = a.rating + a.i } else { a2 = 0 }
-                    if (b.i > 4) { b2 = b.rating + b.i } else { b2 = 0 }
+                    if (a.i > 4) { a2 = a.rating + a.s } else { a2 = 0 }
+                    if (b.i > 4) { b2 = b.rating + b.s } else { b2 = 0 }
                     return b2 - a2
                 })
             },

@@ -59,6 +59,7 @@ const elo = {
             let rDelta = elo.getRatingDelta(i1.rating, i2.rating, 1)
             if (i2.i > 3) { i1.rating += rDelta }
             if (i1.i > 3) { i2.rating -= rDelta }
+            i1.s += 1
             i1.i += 1
             i2.i += 1
             elo.saveToFile('voto', a)
@@ -67,7 +68,7 @@ const elo = {
     addName(d) {
         let nTrimmed = d.name.trim()
         if (db.find(i => i.name.toLowerCase() === nTrimmed.toLowerCase())) { return false }
-        db.push({ rating: 1500, name: nTrimmed, i: 0 })
+        db.push({ rating: 1500, name: nTrimmed, i: 0, s: 0 })
         elo.saveToFile('addName', d)
         return true
     },
@@ -112,9 +113,11 @@ function getIdObject(tipo, req) {
         o.N1 = req.body.battle[0].name
         o.N1Rating = req.body.battle[0].rating
         o.N1i = req.body.battle[0].i
+        o.N1s = req.body.battle[0].s
         o.N2 = req.body.battle[1].name
         o.N2Rating = req.body.battle[1].rating
         o.N2i = req.body.battle[1].i
+        o.N2s = req.body.battle[1].s
     } else if (tipo === 'deletes') {
         o.deletepetition = req.body.name
         o.token = req.body.token

@@ -69,7 +69,9 @@ const createStore = () => {
                 let rDelta = getRatingDelta(i1.rating, i2.rating, 1)
                 i1.rating += rDelta
                 i2.rating -= rDelta
+                i1.s += 1
                 i1.i += 1
+                i2.i += 1
             }
         }
     })

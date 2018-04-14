@@ -22,7 +22,7 @@
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
                 <td class="text-xs-right">{{ props.item.rating }}</td>
-                <td class="text-xs-right">{{ props.item.i }}</td>
+                <td class="text-xs-right">{{ props.item.s }}</td>
             </template>
 <template slot="pageText" slot-scope="props">
                 {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
