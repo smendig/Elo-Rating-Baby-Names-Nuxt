@@ -13,7 +13,7 @@
             </v-btn></transition>
             </div>
             <div v-else>
-                <div><img class="bebeAnimado" src="/boy.svg"></div>
+                <div><img class="bebeAnimado" src="@/static/boy.svg"></div>
                 <h1 class="display-1">HOLA OTRA VEZ:</h1>
                 <div class="uname"><h2 class="">{{storedUsername}}</h2></div>
                 <transition appear name="fade"><div class="cElige"><v-btn to="/elige" color="primary" light>Empezar a elegir</v-btn></div></transition>

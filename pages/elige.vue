@@ -13,7 +13,7 @@
                         <v-flex class="cFinVotacion" xs12>
                             <h1>Gracias por participar.</h1>
                             <h1>Esta votación no se tendrá en cuenta para la decisión final.</h1>
-                            <img src="/boy.svg">
+                            <img src="@/static/boy.svg">
                             <h1>O igual si...</h1>
                             <v-btn @click="retry"><v-icon color="pink">replay</v-icon>Seguir Votando</v-btn>
                         </v-flex>
