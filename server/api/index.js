@@ -89,10 +89,10 @@ const elo = {
                     if (error) { console.log(error) }
                 })
             }
-            fs.writeFile(dbFilePath, JSON.stringify(db), (e) => {
+            fs.writeFile(dbFilePath, JSON.stringify(db, null, 4), (e) => {
                 if (e) { console.log(e) } else { console.log('File Save') }
             })
-            fs.writeFile(statsFilePath, JSON.stringify(stats), (e) => {
+            fs.writeFile(statsFilePath, JSON.stringify(stats, null, 4), (e) => {
                 if (e) { console.log(e) } else { console.log('File Save Stats') }
             })
             saveTimeout = null
