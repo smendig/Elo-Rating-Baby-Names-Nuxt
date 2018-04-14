@@ -15,3 +15,5 @@ build
 
 /server/api/db.json
 server/api/db.json
+/server/api/stats.json
+server/api/stats.json

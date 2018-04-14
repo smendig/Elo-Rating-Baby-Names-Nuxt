@@ -230,12 +230,12 @@
             transform: rotateZ(0deg);
         }
         25% {
-            left: -2px;
-            transform: rotateX(20deg) rotateZ(3deg);
+            left: -4px;
+            transform: rotateX(25deg) rotateZ(4deg);
         }
         50% {
-            left: 2px;
-            transform: rotateX(-15deg) rotateZ(-3deg);
+            left: 4px;
+            transform: rotateX(-20deg) rotateZ(-4deg);
         }
         100% {
             left: 0;

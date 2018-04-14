@@ -122,6 +122,7 @@
                 }
             },
             retry() {
+                this.randomNames()
                 this.waitingServerResponse = false
                 this.nOfVotes = 0
                 this.animationStep = 0
@@ -156,7 +157,7 @@
     .cProgress {
         position: absolute;
         text-align: center;
-        bottom: 80px;
+        bottom: 140px;
         width: 80%;
         left: 10%;
     }
@@ -202,12 +203,12 @@
             transform: rotateZ(0deg);
         }
         25% {
-            left: -2px;
-            transform: rotateX(20deg) rotateZ(3deg);
+            left: -4px;
+            transform: rotateX(25deg) rotateZ(4deg);
         }
         50% {
-            left: 2px;
-            transform: rotateX(-15deg) rotateZ(-3deg);
+            left: 4px;
+            transform: rotateX(-20deg) rotateZ(-4deg);
         }
         100% {
             left: 0;

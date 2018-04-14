@@ -5,13 +5,13 @@
             <UltimoAniadido />
         </div>
         <v-tabs v-if="nameList.length>2" v-model="active" color="primary" dark slider-color="pink" grow>
-            <v-tab ripple>Tu Ranking</v-tab>
-            <v-tab-item>
-                <RankingLocal />
-            </v-tab-item>
             <v-tab ripple>Ranking Global</v-tab>
             <v-tab-item>
                 <RankingGlobal />
+            </v-tab-item>
+            <v-tab ripple>Tu Ranking</v-tab>
+            <v-tab-item>
+                <RankingLocal />
             </v-tab-item>
         </v-tabs>
         <div class="cAniadir"></div>

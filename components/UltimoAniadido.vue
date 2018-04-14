@@ -4,7 +4,7 @@
     <div><span class="d1">{{ultimoAniadido.name}}</span></div>
     <div class="d3">
     <div><span class="d4">{{ultimoAniadido.user}}</span></div>
-    <div>A las {{(new Date(ultimoAniadido.time)).toLocaleTimeString()}}</div>
+    <div>{{timeString}}</div>
     </div>
 </div>
 </template>
@@ -16,12 +16,24 @@
             return {}
         },
         computed: {
-            ultimoAniadido() { return this.$store.state.ultimoAniadido }
+            ultimoAniadido() { return this.$store.state.ultimoAniadido },
+            timeString() {
+                if (this.ultimoAniadido && this.ultimoAniadido.time) { return this.timeToString(this.ultimoAniadido.time) }
+                return ''
+            }
         },
         created() {
             this.$store.dispatch('updateUltimoAniadido')
         },
-        methods: {},
+        methods: {
+            timeToString(t0) {
+                let t = new Date(t0)
+                let h = t.getHours()
+                let m = t.getMinutes()
+                if (m < 10) m = '0' + m
+                return t.toLocaleDateString() + ' a las ' + h + ':' + m
+            }
+        },
         watch: {}
     }
 

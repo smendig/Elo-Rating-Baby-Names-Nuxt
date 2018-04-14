@@ -6,6 +6,7 @@ const GoogleSpreadsheet = require('google-spreadsheet')
 const RateLimit = require('express-rate-limit')
 const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU')
 const dbFilePath = './server/api/db.json'
+const statsFilePath = './server/api/stats.json'
 
 let sheets = { votos: null, deletes: null, nuevos: null }
 let db
@@ -15,11 +16,17 @@ if (fs.existsSync(dbFilePath)) {
     db = []
     fs.writeFileSync(dbFilePath, JSON.stringify(db))
 }
-
-let stats = {
-    ultimoVoto: { user: null, b: null, time: null },
-    ultimoAniadido: { user: null, name: null, time: null }
+let stats
+if (fs.existsSync(statsFilePath)) {
+    stats = JSON.parse(fs.readFileSync(statsFilePath))
+} else {
+    stats = {
+        ultimoVoto: { user: null, b: null, time: null },
+        ultimoAniadido: { user: null, name: null, time: null }
+    }
+    fs.writeFileSync(statsFilePath, JSON.stringify(stats))
 }
+
 let saveTimeout = null
 
 doc.useServiceAccountAuth(require('./cred.json'), function(err) {
@@ -76,6 +83,9 @@ const elo = {
         saveTimeout = setTimeout(() => {
             fs.writeFile(dbFilePath, JSON.stringify(db), (e) => {
                 if (e) { console.log(e) } else { console.log('File Save') }
+            })
+            fs.writeFile(statsFilePath, JSON.stringify(stats), (e) => {
+                if (e) { console.log(e) } else { console.log('File Save Stats') }
             })
             saveTimeout = null
         }, 15000)
