@@ -58,7 +58,6 @@
         methods: {
             cName() {
                 const un = this.username.trim()
-                console.log(utils.malas(un))
                 if (un.length < 3 || un.length > 35 || utils.malas(un)) {
                     this.snackbar = true
                     return

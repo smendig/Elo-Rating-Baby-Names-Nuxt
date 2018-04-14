@@ -50,8 +50,6 @@
                 }).catch(e => {
                     if (e.response && e.response.status === 409) {
                         this.existsShow = true
-                    } else {
-                        console.log(e.response)
                     }
                     this.waitingServerResponse = false
                 })

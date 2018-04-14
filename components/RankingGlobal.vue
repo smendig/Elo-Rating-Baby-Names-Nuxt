@@ -69,7 +69,6 @@
                 if (this.waitingServerResponse) { return }
                 if (!localStorage || !localStorage.token) {
                     this.nedry = true
-                    console.log(document.getElementById('nedvideo'))
                     document.getElementById('nedvideo').play()
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
                         this.waitingServerResponse = false
@@ -77,14 +76,12 @@
                         this.waitingServerResponse = false
                     })
                 } else {
-                    console.log(i)
                     this.waitingServerResponse = true
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name, token: localStorage.token }).then((d) => {
                         this.$store.commit('setNamelist', d.data)
                         this.waitingServerResponse = false
-                    }).catch(e => {
-                        console.log(e.response)
-                        this.waitingServerResponse = false
+                    }).catch(() => {
+                        this.weaitingServerResponse = false
                     })
                 }
             }

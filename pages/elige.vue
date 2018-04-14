@@ -106,8 +106,7 @@
                             this.waitingServerResponse = false
                         }, 1000)
                     }
-                }).catch(e => {
-                    console.log(e)
+                }).catch(() => {
                     this.waitingServerResponse = false
                 })
                 this.$store.dispatch('localRankingCalc', { u: this.username, n: n })
