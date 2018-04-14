@@ -1,4 +1,4 @@
-const CompressionPlugin = require("compression-webpack-plugin")
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
     head: {
@@ -10,8 +10,10 @@ module.exports = {
             { hid: 'robots', name: 'robots', content: 'noindex,nofollow' }
         ],
         link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab|Material+Icons|Montserrat', type: 'text/css' },
+            { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'icon', type: 'image/png', href: '/favicon.png' },
+            { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+            { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons', type: 'text/css' },
             { rel: 'stylesheet', href: 'https://unpkg.com/vuetify@1.0.14/dist/vuetify.min.css', type: 'text/css' }
         ],
         script: []
