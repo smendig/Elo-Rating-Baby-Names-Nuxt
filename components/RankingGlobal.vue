@@ -2,32 +2,32 @@
 <v-container grid-list-md>
     <h4>Clasificación global, basada en todos los votos</h4>
     <h5>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h5>
-        <v-text-field class="filtroglobal"
-        append-icon="search"
-        label="Buscar"
-        single-line
-        hide-details
-        v-model="searchFilterGlobal">
-        </v-text-field>
-        <v-data-table 
-        :headers="headers" 
-        :loading="false" 
-        :rows-per-page-items="[10]" 
-        :items="nameList" 
-        :search="searchFilterGlobal"
-        no-data-text="No hay datos"
-        no-results-text="No existe"
-        disable-initial-sort 
-        class="elevation-1">
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.name }}</td>
-                <td class="text-xs-right">{{(props.item.i>3)?props.item.rating+props.item.s:'-'}}</td>
-                <td class="justify-center layout px-0">
-                    <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-                        <v-icon color="pink">delete</v-icon>
-                    </v-btn>
-                </td>
-            </template>
+    <v-text-field class="filtroglobal"
+    append-icon="search"
+    label="Buscar"
+    single-line
+    hide-details
+    v-model="searchFilterGlobal">
+    </v-text-field>
+    <v-data-table 
+    :headers="headers" 
+    :loading="false" 
+    :rows-per-page-items="[10]" 
+    :items="nameList" 
+    :search="searchFilterGlobal"
+    no-data-text="No hay datos"
+    no-results-text="No existe"
+    disable-initial-sort 
+    class="elevation-1">
+        <template slot="items" slot-scope="props">
+            <td>{{ props.item.name }}</td>
+            <td class="text-xs-right">{{(props.item.i>3)?props.item.rating+props.item.s:'-'}}</td>
+            <td class="justify-center layout px-0">
+                <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+                    <v-icon color="pink">delete</v-icon>
+                </v-btn>
+            </td>
+        </template>
 <template slot="pageText" slot-scope="props">
                 {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
         </template>
@@ -70,6 +70,7 @@
             deleteItem(i) {
                 if (this.waitingServerResponse) { return }
                 if (!localStorage || !localStorage.token) {
+                    // tiene que activarse desde aquí sino no funciona en movil (en movil necesita acion de usuario, por eso):
                     document.getElementById('nedvideo').play()
                     this.$store.commit('setNedry', true)
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
