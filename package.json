@@ -24,6 +24,7 @@
     "node-sass": "^4.8.3",
     "nuxt": "^1.4.0",
     "nuxt-sass-resources-loader": "^2.0.0",
+    "pushbullet": "^2.2.0",
     "sass-loader": "^6.0.7",
     "source-map-support": "^0.5.4",
     "typed.js": "^2.0.6",

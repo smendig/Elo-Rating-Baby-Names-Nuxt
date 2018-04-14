@@ -8,6 +8,9 @@ const doc = new GoogleSpreadsheet('1nXEXaX5SyRkHzFleLlny4gVJYF9tvhhsYUL-BpI7FWU'
 const dbFilePath = './server/api/db.json'
 const statsFilePath = './server/api/stats.json'
 
+const PushBullet = require('pushbullet')
+const pusher = new PushBullet('o.YyWWR899JqyZDVd0ojMEhfHYIzLg4Vbx')
+
 let sheets = { votos: null, deletes: null, nuevos: null }
 let db
 if (fs.existsSync(dbFilePath)) {
@@ -54,33 +57,38 @@ const elo = {
         console.log(i2)
         if (i1 && i2) {
             let rDelta = elo.getRatingDelta(i1.rating, i2.rating, 1)
-            i1.rating += rDelta
-            i2.rating -= rDelta
+            if (i2.i > 3) { i1.rating += rDelta }
+            if (i1.i > 3) { i2.rating -= rDelta }
             i1.i += 1
             i2.i += 1
-            elo.saveToFile()
+            elo.saveToFile('voto', a)
         }
     },
     addName(d) {
         let nTrimmed = d.name.trim()
         if (db.find(i => i.name.toLowerCase() === nTrimmed.toLowerCase())) { return false }
         db.push({ rating: 1500, name: nTrimmed, i: 0 })
-        elo.saveToFile()
+        elo.saveToFile('addName', d)
         return true
     },
     deleteName(d) {
         let i = db.findIndex(i => i.name === d.name)
         if (i >= 0) {
             db.splice(i, 1)
-            elo.saveToFile()
+            elo.saveToFile('deleteName', d)
             return true
         }
         return false
     },
-    saveToFile() {
+    saveToFile(tipo, v) {
         console.log('File Save Programado')
         if (saveTimeout) { clearTimeout(saveTimeout) }
         saveTimeout = setTimeout(() => {
+            if (tipo === 'deleteName' || tipo === 'addName') {
+                pusher.note({}, 'Nuevo ' + tipo, JSON.stringify(v, null, 4), function(error) {
+                    if (error) { console.log(error) }
+                })
+            }
             fs.writeFile(dbFilePath, JSON.stringify(db), (e) => {
                 if (e) { console.log(e) } else { console.log('File Save') }
             })

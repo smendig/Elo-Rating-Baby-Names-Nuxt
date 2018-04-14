@@ -21,7 +21,7 @@
         class="elevation-1">
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.name }}</td>
-                <td class="text-xs-right">{{ props.item.rating }}</td>
+                <td class="text-xs-right">{{(props.item.i>3)?props.item.rating+props.item.i:'-'}}</td>
                 <td class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="deleteItem(props.item)">
                         <v-icon color="pink">delete</v-icon>
@@ -33,6 +33,7 @@
         </template>
 </v-data-table>
 <p>* Rating por sistema de puntuación ELO</p>
+<p>* Los nombres nuevos aparecen sin rating hasta que sea mas exacto</p>
 <v-dialog v-model="nedry" max-width="500px">
     <Nedry />
 </v-dialog>
@@ -59,7 +60,15 @@
             }
         },
         computed: {
-            nameList() { return this.$store.state.nameList.sort((a, b) => b.rating - a.rating) },
+            nameList() {
+                return this.$store.state.nameList.sort((a, b) => {
+                    let a2
+                    let b2
+                    if (a.i > 4) { a2 = a.rating + a.i } else { a2 = 0 }
+                    if (b.i > 4) { b2 = b.rating + b.i } else { b2 = 0 }
+                    return b2 - a2
+                })
+            },
             username() { return this.$store.state.per.username },
             prevu() { return this.$store.state.per.prevu }
         },
