@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade" appear="">
     <v-container grid-list-md>
         <div class="cUltimos">
             <UltimoVoto />
@@ -21,6 +22,7 @@
             <h3>Añade algún nombre que <span style="color:#e91e63">te guste</span> para que se incluyan en entre las opciones de votar.</h3>
         </div>
     </v-container>
+    </transition>
 </template>
 
 <script>
