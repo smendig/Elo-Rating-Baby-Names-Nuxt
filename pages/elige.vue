@@ -42,6 +42,7 @@
 
 <script>
     import axios from '~/plugins/axios'
+    let t1
     export default {
         components: {},
         data() {
@@ -64,7 +65,7 @@
         created() {
             function sleep(time) {
                 return new Promise(resolve => {
-                    setTimeout(resolve, time)
+                    t1 = setTimeout(resolve, time)
                 })
             }
             if (!this.username) {
@@ -87,6 +88,9 @@
                 this.animationStep = 4
                 return sleep(500)
             })
+        },
+        beforeDestroy() {
+            clearTimeout(t1)
         },
         methods: {
             clickName(n) {
