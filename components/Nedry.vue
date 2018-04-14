@@ -1,21 +1,35 @@
 <template>
-    <v-container class="c" grid-list-md>
-        <video id="nedvideo" loop>
-            <source src="/nedry.mp4" type="video/mp4">
+    <v-dialog v-model="nedryDialog" max-width="500px">
+        <div class="c">
+        <video ref="nedry" id="nedvideo" preload="auto" loop>
+            <source src="@/static/nedry.mp4" type="video/mp4">
         </video>
-    </v-container>
+        </div>
+    </v-dialog>
 </template>
 
 <script>
     export default {
         components: {},
         data() {
-            return {}
+            return {
+                nedryDialog: false
+            }
         },
-        computed: {},
+        computed: { nedry() { return this.$store.state.nedry } },
         created() {},
         methods: {},
-        watch: {}
+        watch: {
+            nedry(v) {
+                this.nedryDialog = this.nedry
+                if (v) { this.$refs.nedry.play() } else { this.$refs.nedry.pause() }
+            },
+            nedryDialog(v) {
+                if (!v) {
+                    this.$store.commit('setNedry', false)
+                }
+            }
+        }
     }
 
 </script>

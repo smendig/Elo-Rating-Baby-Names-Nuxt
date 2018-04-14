@@ -34,20 +34,15 @@
 </v-data-table>
 <p>* Rating por sistema de puntuación ELO</p>
 <p>* Los nombres nuevos aparecen sin rating hasta que sea mas exacto</p>
-<v-dialog v-model="nedry" max-width="500px">
-    <Nedry />
-</v-dialog>
 </v-container>
 </template>
 
 <script>
     import axios from '~/plugins/axios'
-    import Nedry from '@/components/Nedry.vue'
     export default {
-        components: { Nedry },
+        components: {},
         data() {
             return {
-                nedry: false,
                 searchFilterGlobal: '',
                 waitingServerResponse: false,
                 headers: [
@@ -75,8 +70,7 @@
             deleteItem(i) {
                 if (this.waitingServerResponse) { return }
                 if (!localStorage || !localStorage.token) {
-                    this.nedry = true
-                    document.getElementById('nedvideo').play()
+                    this.$store.commit('setNedry', true)
                     axios.post('/api/deletename', { uname: this.username, prevu: this.prevu, name: i.name }).then(() => {
                         this.waitingServerResponse = false
                     }).catch(() => {
@@ -93,12 +87,7 @@
                 }
             }
         },
-        watch: {
-            nedry(v) {
-                let vid = document.getElementById('nedvideo')
-                if (vid) { if (v) { vid.play() } else { vid.pause() } }
-            }
-        }
+        watch: {}
     }
 
 </script>

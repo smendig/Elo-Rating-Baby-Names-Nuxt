@@ -1,5 +1,4 @@
 <template>
-    <transition name="fade" appear="">
     <v-container grid-list-md>
         <div class="cUltimos">
             <UltimoVoto />
@@ -21,8 +20,8 @@
             <v-btn class="bAniadir" to="/aniadirnombre">Añadir Nuevo Nombre</v-btn>
             <h3>Añade algún nombre que <span style="color:#e91e63">te guste</span> para que se incluyan en entre las opciones de votar.</h3>
         </div>
+        <Nedry />
     </v-container>
-    </transition>
 </template>
 
 <script>
@@ -30,12 +29,11 @@
     import RankingLocal from '@/components/RankingLocal.vue'
     import UltimoVoto from '@/components/UltimoVoto.vue'
     import UltimoAniadido from '@/components/UltimoAniadido.vue'
+    import Nedry from '@/components/Nedry.vue'
     export default {
-        components: { RankingGlobal, RankingLocal, UltimoVoto, UltimoAniadido },
+        components: { RankingGlobal, RankingLocal, UltimoVoto, UltimoAniadido, Nedry },
         data() {
-            return {
-                active: null
-            }
+            return { active: null }
         },
         computed: {
             nameList() { return this.$store.state.nameList },

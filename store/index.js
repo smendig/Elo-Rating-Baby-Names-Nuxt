@@ -7,7 +7,8 @@ const createStore = () => {
             per: { username: null, localRanking: {}, prevu: '' },
             nameList: [],
             ultimoVoto: { user: null, b: null, time: null },
-            ultimoAniadido: { user: null, name: null, time: null }
+            ultimoAniadido: { user: null, name: null, time: null },
+            nedry: false
         },
         getters: {},
         mutations: {
@@ -25,7 +26,8 @@ const createStore = () => {
             setPushToLocalRanking(state, { u, r }) { state.per.localRanking[u].push(r) },
             addPrevu(state, u) { state.per.prevu += '||' + u },
             setUltimoVoto(state, d) { state.ultimoVoto = d },
-            setUltimoAniadido(state, d) { state.ultimoAniadido = d }
+            setUltimoAniadido(state, d) { state.ultimoAniadido = d },
+            setNedry(state, d) { state.nedry = d }
         },
         actions: {
             updateList({ commit }, cb) {

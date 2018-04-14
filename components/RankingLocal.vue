@@ -29,19 +29,14 @@
         </template>
 </v-data-table>
 <p>* Rating por sistema de puntuación ELO</p>
-<v-dialog v-model="nedry" max-width="500px">
-    <Nedry />
-</v-dialog>
 </v-container>
 </template>
 
 <script>
-    import Nedry from '@/components/Nedry.vue'
     export default {
-        components: { Nedry },
+        components: {},
         data() {
             return {
-                nedry: false,
                 searchFilterGlobal: '',
                 waitingServerResponse: false,
                 headers: [
