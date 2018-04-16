@@ -94,7 +94,7 @@
                         strings: ['Hola!^2000',
                             'Esto es un pasatiempo hecho por <span style="font-weight:bold">RaiSabin Creations©</span> para ayudarnos a elegir el nombre del niño.^2000',
                             'La opinión de los demás no nos importa^400, la elección del nombre será nues^1000',
-                            'La opinión de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
+                            'La opinión de los demás no nos importa <span style="color:#666">(bueno...^400 un poco^700, depende de quién seas 😋)^1000</span>, la elección del nombre será nuestra.^2000 Pero si quieres participar...^1500',
                             '¿Quién Eres?'
                         ],
                         typeSpeed: 40,

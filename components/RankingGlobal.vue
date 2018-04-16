@@ -1,7 +1,6 @@
 <template>
 <v-container grid-list-md>
     <h4>Clasificación global, basada en todos los votos</h4>
-    <h5>No borres ningún nombre a no ser que tengas una buena razón, ya que se eliminaría para todos</h5>
     <v-text-field class="filtroglobal"
     append-icon="search"
     label="Buscar"
