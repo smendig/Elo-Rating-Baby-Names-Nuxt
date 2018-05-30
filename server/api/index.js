@@ -9,7 +9,7 @@ const dbFilePath = './server/api/db.json'
 const statsFilePath = './server/api/stats.json'
 
 const PushBullet = require('pushbullet')
-const pusher = new PushBullet('o.YyWWR899JqyZDVd0ojMEhfHYIzLg4Vbx')
+const pusher = new PushBullet()
 
 let sheets = { votos: null, deletes: null, nuevos: null }
 let db
