@@ -33,7 +33,7 @@
     "vue-style-loader": "^4.1.0",
     "vuetify": "^1.0.14",
     "vuex-persistedstate": "^2.5.2",
-    "webpack-bundle-analyzer": "^2.11.1"
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
