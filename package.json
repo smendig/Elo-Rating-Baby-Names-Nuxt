@@ -22,7 +22,7 @@
     "express-rate-limit": "^2.11.0",
     "google-spreadsheet": "^2.0.4",
     "morgan": "^1.9.1",
-    "node-sass": "^4.8.3",
+    "node-sass": "^4.13.1",
     "nuxt": "^1.4.0",
     "nuxt-sass-resources-loader": "^2.0.0",
     "pushbullet": "^2.2.0",
